@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: skeleton
+# Cookbook Name:: site-reviewtypo3org
 # Recipe:: default
 #
-# Copyright (C) YEAR YOUR_NAME <YOUR_EMAIL>
+# Copyright (C) Steffen Gebert / TYPO3 Association
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,4 +17,5 @@
 # limitations under the License.
 #
 
-# Install/configure something here
+include_recipe "ssl_certificates"
+include_recipe "gerrit"
