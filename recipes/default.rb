@@ -19,3 +19,5 @@
 
 include_recipe "ssl_certificates"
 include_recipe "gerrit"
+
+include_recipe "site-reviewtypo3org::worker"
