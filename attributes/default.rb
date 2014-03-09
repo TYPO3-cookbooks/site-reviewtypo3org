@@ -1,20 +1,21 @@
-#
-# Cookbook Name:: skeleton
-# Attributes:: default
-#
-# Copyright (C) YEAR YOUR_NAME <YOUR_EMAIL>
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
+# generic defaults
 
-# Set meaningful node attributes here
+default['site-gittypo3org']['amqp']['server'] = nil
+default['site-gittypo3org']['amqp']['user'] = nil
+default['site-gittypo3org']['amqp']['vhost'] = nil
+
+# override defaults for production
+if node.chef_environment == 'production'
+  default['site-reviewtypo3org']['amqp'] = {
+    'server' => 'mq.typo3.org',
+    'user' => 'reviewtypo3org',
+    'vhost' => 'infrastructure'
+  }
+# override defaults for pre-production
+elsif node.chef_environment == 'pre-production'
+  default['site-reviewtypo3org']['amqp'] = {
+    'server' => 'mq.typo3.org',
+    'user' => 'devreviewtypo3org',
+    'vhost' => 'infrastructure_dev'
+  }
+end
