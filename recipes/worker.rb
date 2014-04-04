@@ -23,10 +23,13 @@ package "ruby"
 package "bundler"
 
 # create shared config directory
-directory "#{deploy_base}/shared/config" do
-  owner "gerrit"
-  group "gerrit"
-  action :create
+[deploy_base, "#{deploy_base}/shared", "#{deploy_base}/shared/config"].each do |dir|
+  directory dir do
+    owner "gerrit"
+    group "gerrit"
+    recursive true
+    action :create
+  end
 end
 
 # handle amqp password
@@ -86,8 +89,7 @@ end
 
 include_recipe "runit"
 
-runit_service "mq-worker-git-create" do
-  default_logger true
+runit_service "mq-worker-reviewtypo3org" do
   owner          "gerrit"
   group          "gerrit"
   options ({
