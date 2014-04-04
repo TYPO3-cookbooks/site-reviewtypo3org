@@ -107,6 +107,7 @@ include_recipe "runit"
 runit_service "mq-worker-reviewtypo3org" do
   owner          "gerrit"
   group          "gerrit"
+  default_logger true
   options ({
     :deploy_base => deploy_base}.merge(params)
   )
