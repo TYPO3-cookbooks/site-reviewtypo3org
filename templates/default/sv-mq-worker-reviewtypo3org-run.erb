@@ -1,6 +1,6 @@
- #!/bin/bash
- exec 2>&1
- echo 'mq-worker-gerrittypo3org starting.'
- cd "<%= @options[:deploy_base] %>/current/"
- exec chpst -ugerrit:gerrit \
-     bundle exec bin/worker
+#!/bin/bash
+exec 2>&1
+echo 'mq-worker-gerrittypo3org starting.'
+cd "<%= @options[:deploy_base] %>/current/"
+exec chpst -ugerrit:gerrit \
+    bundle exec bin/worker
