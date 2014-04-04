@@ -1,8 +1,8 @@
 # generic defaults
 
-default['site-gittypo3org']['amqp']['server'] = nil
-default['site-gittypo3org']['amqp']['user'] = nil
-default['site-gittypo3org']['amqp']['vhost'] = nil
+default['site-reviewtypo3org']['amqp']['server'] = nil
+default['site-reviewtypo3org']['amqp']['user'] = nil
+default['site-reviewtypo3org']['amqp']['vhost'] = nil
 
 # override defaults for production
 if node.chef_environment == 'production'

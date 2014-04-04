@@ -17,18 +17,15 @@
 # limitations under the License.
 #
 
-deploy_base = "/srv/mq-worker"
+deploy_base = "/srv/mq-worker-reviewtypo3org"
 
 package "ruby"
 package "bundler"
 
-
-##
-
 # create shared config directory
 directory "#{deploy_base}/shared/config" do
-  owner "git"
-  group "git"
+  owner "gerrit"
+  group "gerrit"
   action :create
 end
 
@@ -44,6 +41,7 @@ else
 
 end
 
+
 # create a proper amqp.yml
 template "#{deploy_base}/shared/config/amqp.yml" do
   owner      "gerrit"
@@ -58,9 +56,9 @@ template "#{deploy_base}/shared/config/amqp.yml" do
   })
 end
 
-##
-
-deploy_revision "mq-worker" do
+# deploy resource for mq-worker-gerrittypo3org
+deploy_revision "mq-worker-reviewtypo3org" do
+  #action  :force_deploy
   deploy_to      deploy_base
   repository     "https://github.com/TYPO3-infrastructure/mq-worker-reviewtypo3org"
   migrate        false
@@ -76,13 +74,13 @@ deploy_revision "mq-worker" do
       group "gerrit"
     end
 
-    execute "bundle install" do
+    execute "bundle install --path=vendor/bundle --without development test" do
       cwd release_path
       user           "gerrit"
     end
 
   end
-  notifies :restart, "runit_service[mq-worker-git-create]"
+  notifies :restart, "runit_service[mq-worker-reviewtypo3org]"
 end
 
 
@@ -92,4 +90,7 @@ runit_service "mq-worker-git-create" do
   default_logger true
   owner          "gerrit"
   group          "gerrit"
+  options ({
+    :deploy_base => deploy_base}.merge(params)
+  )
 end
