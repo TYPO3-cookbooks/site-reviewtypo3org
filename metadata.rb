@@ -5,4 +5,4 @@ license          "Apache 2.0"
 description      "Installs/configures something"
 version          "0.1.1"
 
-depends "t3-gerrit"
+depends "gerrit"
