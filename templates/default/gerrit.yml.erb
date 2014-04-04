@@ -1,0 +1,22 @@
+# Gerrit configuration file
+
+# These values will be used to connect to the gerrit review service
+
+# The configuration specifies the following keys:
+# * user     - Username for the connection
+# * host     - Hostname where gerrit is running
+# * port     - Port where gerrit is running (can be omitted and defaults to 29419)
+
+defaults: &defaults
+  user: <%= @data[:user] %>
+  host: <%= @data[:host] %>
+  port: <%= @data[:port] %>
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
