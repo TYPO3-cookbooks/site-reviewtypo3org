@@ -59,6 +59,20 @@ template "#{deploy_base}/shared/config/amqp.yml" do
   })
 end
 
+# create a proper gerrit.yml for the worker
+template "#{deploy_base}/shared/config/gerrit.yml" do
+  owner      "gerrit"
+  group      "gerrit"
+  variables({
+    :data => {
+      :user => node['site-reviewtypo3org']['mq-worker']['gerrit']['user'],
+      :host => node['gerrit']['hostname'],
+      :port => node['gerrit']['port'],
+    }
+  })
+end
+
+
 # deploy resource for mq-worker-gerrittypo3org
 deploy_revision "mq-worker-reviewtypo3org" do
   #action  :force_deploy
@@ -68,7 +82,8 @@ deploy_revision "mq-worker-reviewtypo3org" do
   user           "gerrit"
   group          "gerrit"
   symlink_before_migrate ({
-    'config/amqp.yml' => 'config/amqp.yml'
+    'config/amqp.yml' => 'config/amqp.yml',
+    'config/gerrit.yml' => 'config/gerrit.yml'
   })
   before_symlink do
 

@@ -4,6 +4,8 @@ default['site-reviewtypo3org']['amqp']['server'] = nil
 default['site-reviewtypo3org']['amqp']['user'] = nil
 default['site-reviewtypo3org']['amqp']['vhost'] = nil
 
+default['site-reviewtypo3org']['mq-worker']['gerrit']['user'] = 'gerrit-mq-worker'
+
 # override defaults for production
 if node.chef_environment == 'production'
   default['site-reviewtypo3org']['amqp'] = {
