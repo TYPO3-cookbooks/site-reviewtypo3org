@@ -40,7 +40,7 @@ else
   Chef::Log.info "AMQP #{node['site-reviewtypo3org']['amqp']['server']} and #{node['site-reviewtypo3org']['amqp']['user']} !"
 
   # read AMQP password from chef-vault
-  include_recipe chef_vault
+  include_recipe "chef_vault"
   amqp_pass = chef_vault_password(node['site-reviewtypo3org']['amqp']['server'], node['site-reviewtypo3org']['amqp']['user'])
 
 end
