@@ -6,5 +6,6 @@ description      "Installs/configures something"
 version          "0.1.1"
 
 depends "ssl_certificates"
+depends "chef-vault"
 depends "gerrit"
 depends "t3-gerrit"
