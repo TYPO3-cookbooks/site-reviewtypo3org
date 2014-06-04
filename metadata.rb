@@ -7,3 +7,4 @@ version          "0.1.1"
 
 depends "ssl_certificates"
 depends "gerrit"
+depends "t3-gerrit"
