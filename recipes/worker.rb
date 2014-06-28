@@ -39,7 +39,7 @@ if Chef::Config[:solo]
   Chef::Log.warn "AMQP connection will be disabled as running inside of chef-solo!"
   amqp_pass = "fooo"
 else
-  Chef::Log.info "AMQP #{node['site-reviewtypo3org']['amqp']['server']} and #{node['site-reviewtypo3org']['amqp']['user']} !"
+  Chef::Log.info "AMQP credentials: #{node['site-reviewtypo3org']['amqp']['user']}@#{node['site-reviewtypo3org']['amqp']['server']}"
 
   # read AMQP password from chef-vault
   include_recipe "chef-vault"
