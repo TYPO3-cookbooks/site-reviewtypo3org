@@ -77,7 +77,7 @@ end
 execute "add mq user to gerrit" do
   admin_user = node['gerrit']['batch_admin_user']['username']
   admin_key_file = node['gerrit']['home'] + "/.ssh/id-rsa-#{admin_user}.pub"  
-  command "ssh -i #{admin_key_file} -o StrictHostKeyChecking=no -p 29418 #{['gerrit']['hostname']} gerrit help"
+  command "ssh -i #{admin_key_file} -o StrictHostKeyChecking=no -p 29418 #{node['gerrit']['hostname']} gerrit help"
   
   #Chef::Application.fatal!("Please manually create user first") if Gerrit::Helpers.ssh_can_connect?(node['site-reviewtypo3org']['mq-worker']['gerrit']['user'], "#{ssh_key}.pub", node['gerrit']['hostname'], 29418)
 end
