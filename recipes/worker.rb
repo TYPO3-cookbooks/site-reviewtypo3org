@@ -86,6 +86,7 @@ end
 template "#{deploy_base}/shared/config/gerrit.yml" do
   owner      "gerrit"
   group      "gerrit"
+  source     "worker/gerrit.yml.erb"
   variables({
     :data => {
       :user => node['site-reviewtypo3org']['mq-worker']['gerrit']['user'],
