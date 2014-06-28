@@ -2,13 +2,18 @@
 driver:
   name: vagrant
 
+
 provisioner:
   name: chef_zero
 
 platforms:
-  - name: debian-7.4
-    run_list:
-    - recipe[apt::default]
+- name: debian-7.4
+  run_list:
+  - recipe[apt::default]
+  driver_config:
+    provision_command:
+    - apt-get update
+    - apt-get install cron -y
 
 suites:
   - name: default
