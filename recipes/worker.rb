@@ -66,7 +66,7 @@ end
 ssh_key_filename = "id_rsa-#{node['site-reviewtypo3org']['mq-worker']['gerrit']['user']}"
 ssh_key = node['gerrit']['home'] + "/.ssh/" + ssh_key_filename
 execute "generate private ssh key for 'Gerrit Code Review' user" do
-  command "ssh-keygen -t rsa -q -f #{ssh_key} -C\"#{node['site-reviewtypo3org']['mq-worker']['gerrit']['user']}@#{node['gerrit']['hostname']}"
+  command "ssh-keygen -t rsa -q -f #{ssh_key} -C\"#{node['site-reviewtypo3org']['mq-worker']['gerrit']['user']}@#{node['gerrit']['hostname']}\""
   user "gerrit"
   creates ssh_key
   #not_if { File.exists?ssh_key }
