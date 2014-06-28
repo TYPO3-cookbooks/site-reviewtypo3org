@@ -52,6 +52,7 @@ end
 template "#{deploy_base}/shared/config/amqp.yml" do
   owner      "gerrit"
   group      "gerrit"
+  source     "worker/amqp.yml.erb"
   variables({
     :data => {
       :user => node['site-reviewtypo3org']['amqp']['user'],
