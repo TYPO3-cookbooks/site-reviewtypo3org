@@ -74,11 +74,12 @@ execute "generate private ssh key for 'Gerrit Code Review' user" do
 end
 
 # check wether mq-worker can connect to gerrit
-execute "test connection to 'Gerrit Code Review'" do
-  command "ssh -o StrictHostKeyChecking=no -i #{ssh_key}.pub -p #{gerrit_ssh_port} #{node['site-reviewtypo3org']['mq-worker']['gerrit']['user']}@#{node['gerrit']['hostname']} gerrit help"
-  user "gerrit"
-  #creates ssh_key
-  #not_if { File.exists?ssh_key }
+execute "add mq user to gerrit" do
+  admin_user = node['gerrit']['batch_admin_user']['username']
+  admin_key_file = node['gerrit']['home'] + "/.ssh/id-rsa-#{admin_user}.pub"  
+  command "ssh -i #{admin_key_file} -o StrictHostKeyChecking=no -p 29418 #{['gerrit']['hostname']} gerrit help"
+  
+  #Chef::Application.fatal!("Please manually create user first") if Gerrit::Helpers.ssh_can_connect?(node['site-reviewtypo3org']['mq-worker']['gerrit']['user'], "#{ssh_key}.pub", node['gerrit']['hostname'], 29418)
 end
 
 # create a proper gerrit.yml for the worker
