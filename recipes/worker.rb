@@ -22,6 +22,8 @@ deploy_base = "/srv/mq-worker-reviewtypo3org"
 package "ruby"
 package "bundler"
 
+gerrit_ssh_port = '29418'
+
 # create shared config directory
 [deploy_base, "#{deploy_base}/shared", "#{deploy_base}/shared/config"].each do |dir|
   directory dir do
@@ -71,8 +73,8 @@ execute "generate private ssh key for 'Gerrit Code Review' user" do
 end
 
 # check wethe mq-worker can connect to gerrit
-execute "generate private ssh key for 'Gerrit Code Review' user" do
-  command "ssh -i #{ssh_key}.pub -p #{node['gerrit']['port']} #{node['site-reviewtypo3org']['mq-worker']['gerrit']['user']}@#{node['gerrit']['hostname']} gerrit help"
+execute "test connection to 'Gerrit Code Review'" do
+  command "ssh -i #{ssh_key}.pub -p #{gerrit_ssh_port} #{node['site-reviewtypo3org']['mq-worker']['gerrit']['user']}@#{node['gerrit']['hostname']} gerrit help"
   user "gerrit"
   #creates ssh_key
   #not_if { File.exists?ssh_key }
@@ -86,7 +88,7 @@ template "#{deploy_base}/shared/config/gerrit.yml" do
     :data => {
       :user => node['site-reviewtypo3org']['mq-worker']['gerrit']['user'],
       :host => node['gerrit']['hostname'],
-      :port => node['gerrit']['port'],
+      :port => gerrit_ssh_port,
     }
   })
 end
