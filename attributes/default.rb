@@ -7,3 +7,5 @@ default['gerrit']['config']['auth']['type'] = "HTTP"
 default['gerrit']['config']['auth']['cookieSecure'] = true
 default['gerrit']['config']['auth']['gitBasicAuth'] = true
 default['gerrit']['proxy']['ssl'] = true
+
+default['gerrit']['admin_batch_user']['enabled'] = true
