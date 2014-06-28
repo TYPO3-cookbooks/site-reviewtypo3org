@@ -6,4 +6,4 @@ default['gerrit']['config']['database']['type'] = "mysql"
 default['gerrit']['config']['auth']['type'] = "HTTP"
 default['gerrit']['config']['auth']['cookieSecure'] = true
 default['gerrit']['config']['auth']['gitBasicAuth'] = true
-default['gerrit']['proxy']['ssl']['enable'] = true
+default['gerrit']['proxy']['ssl'] = true
