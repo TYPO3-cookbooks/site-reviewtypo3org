@@ -74,7 +74,7 @@ end
 
 # check wethe mq-worker can connect to gerrit
 execute "test connection to 'Gerrit Code Review'" do
-  command "ssh -i #{ssh_key}.pub -p #{gerrit_ssh_port} #{node['site-reviewtypo3org']['mq-worker']['gerrit']['user']}@#{node['gerrit']['hostname']} gerrit help"
+  command "ssh -o StrictHostKeyChecking=no -i #{ssh_key}.pub -p #{gerrit_ssh_port} #{node['site-reviewtypo3org']['mq-worker']['gerrit']['user']}@#{node['gerrit']['hostname']} gerrit help"
   user "gerrit"
   #creates ssh_key
   #not_if { File.exists?ssh_key }
