@@ -16,6 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+require 'mixlib/shellout'
+require 'shellwords'
 
 deploy_base = "/srv/mq-worker-reviewtypo3org"
 
@@ -73,12 +75,36 @@ execute "generate private ssh key for 'Gerrit Code Review' user" do
   #not_if { File.exists?ssh_key }
 end
 
-# check wether mq-worker can connect to gerrit
-execute "add mq user to gerrit" do
-  admin_user = node['gerrit']['batch_admin_user']['username']
-  admin_key_file = node['gerrit']['home'] + "/.ssh/id_rsa-#{admin_user}"
-  command "ssh -i #{admin_key_file} -o StrictHostKeyChecking=no -p 29418 \"#{admin_user}@#{node['gerrit']['hostname']}\" gerrit"
-  #Chef::Application.fatal!("Please manually create user first") if Gerrit::Helpers.ssh_can_connect?(node['site-reviewtypo3org']['mq-worker']['gerrit']['user'], "#{ssh_key}.pub", node['gerrit']['hostname'], 29418)
+Chef::Recipe.send(:include, Gerrit::Helpers)
+ruby_block "site-review mq-worker create gerrit mq user" do
+  block do
+    admin_user = node['gerrit']['batch_admin_user']['username']
+    admin_key_file = node['gerrit']['home'] + "/.ssh/id_rsa-#{admin_user}"
+    gerrit_host = node['gerrit']['hostname']
+       
+    mq_gerrit_user = node['site-reviewtypo3org']['mq-worker']['gerrit']['user'] 
+    
+    has_mq_user = ssh_can_connect?(mq_gerrit_user, ssh_key, gerrit_host, gerrit_ssh_port)
+    puts has_mq_user
+    unless has_mq_user then
+      has_admin_user = ssh_can_connect?(admin_user, admin_key_file, gerrit_host, gerrit_ssh_port)
+      puts has_admin_user
+      if has_admin_user
+        public_key_content = Shellwords.shellescape(File.read("#{ssh_key}.pub"))
+        gerrit_create_cmd = "gerrit create-account --group \"Non-Interactive\\ Users\" --group \"Administrators\" --full-name \"mq\\ worker\\ batch\" --ssh-key \"#{public_key_content}\" #{mq_gerrit_user}"
+        create_mq_user_shell =  Mixlib::ShellOut.new("ssh -o StrictHostKeyChecking=no -i #{admin_key_file} -p #{gerrit_ssh_port} -l #{admin_user} #{gerrit_host} #{gerrit_create_cmd}")
+        create_mq_user_shell.run_command
+        if create_mq_user_shell.error?
+          msg = "execution error"
+          create_mq_user_shell.invalid!(msg)
+          #raises exeception
+        end
+      else
+        msg = "mq-worker cant connect to gerrit and also cant be created, pls fix manually: #{admin_user} #{admin_key_file} #{gerrit_host}"
+        raise "#{msg}"
+      end
+    end
+  end
 end
 
 # create a proper gerrit.yml for the worker
