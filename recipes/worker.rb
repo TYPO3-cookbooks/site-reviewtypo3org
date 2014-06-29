@@ -83,6 +83,7 @@ ruby_block "site-review mq-worker create gerrit mq user" do
     gerrit_host = node['gerrit']['hostname']
        
     mq_gerrit_user = node['site-reviewtypo3org']['mq-worker']['gerrit']['user'] 
+    mq_gerrit_user_email = node['site-reviewtypo3org']['mq-worker']['gerrit']['user_email']
     
     has_mq_user = ssh_can_connect?(mq_gerrit_user, ssh_key, gerrit_host, gerrit_ssh_port)
     puts has_mq_user
@@ -91,7 +92,7 @@ ruby_block "site-review mq-worker create gerrit mq user" do
       puts has_admin_user
       if has_admin_user
         public_key_content = Shellwords.shellescape(File.read("#{ssh_key}.pub"))
-        gerrit_create_cmd = "gerrit create-account --group \"Non-Interactive\\ Users\" --group \"Administrators\" --full-name \"mq\\ worker\\ batch\" --ssh-key \"#{public_key_content}\" #{mq_gerrit_user}"
+        gerrit_create_cmd = "gerrit create-account --group \"Non-Interactive\\ Users\" --group \"Administrators\" --full-name \"mq\\ worker\\ batch\" --email \"#{mq_gerrit_user_email}\" --ssh-key \"#{public_key_content}\" #{mq_gerrit_user}"
         create_mq_user_shell =  Mixlib::ShellOut.new("ssh -o StrictHostKeyChecking=no -i #{admin_key_file} -p #{gerrit_ssh_port} -l #{admin_user} #{gerrit_host} #{gerrit_create_cmd}")
         create_mq_user_shell.run_command
         if create_mq_user_shell.error?
@@ -115,6 +116,7 @@ template "#{deploy_base}/shared/config/gerrit.yml" do
   variables({
     :data => {
       :user => node['site-reviewtypo3org']['mq-worker']['gerrit']['user'],
+      :user_email => node['site-reviewtypo3org']['mq-worker']['gerrit']['user_email'],
       :host => node['gerrit']['hostname'],
       :port => gerrit_ssh_port,
     }
