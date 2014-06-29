@@ -25,12 +25,14 @@ package "ruby"
 package "bundler"
 
 gerrit_ssh_port = '29418'
+app_owner = 'gerrit'
+app_group = 'gerrit'
 
 # create shared config directory
 [deploy_base, "#{deploy_base}/shared", "#{deploy_base}/shared/config"].each do |dir|
   directory dir do
-    owner "gerrit"
-    group "gerrit"
+    owner app_owner
+    group app_group
     recursive true
     action :create
   end
@@ -52,8 +54,8 @@ end
 
 # create a proper amqp.yml
 template "#{deploy_base}/shared/config/amqp.yml" do
-  owner      "gerrit"
-  group      "gerrit"
+  owner      app_owner
+  group      app_group
   source     "worker/amqp.yml.erb"
   variables({
     :data => {
@@ -70,7 +72,7 @@ ssh_key_filename = "id_rsa-#{node['site-reviewtypo3org']['mq-worker']['gerrit'][
 ssh_key = node['gerrit']['home'] + "/.ssh/" + ssh_key_filename
 execute "generate private ssh key for 'Gerrit Code Review' user" do
   command "ssh-keygen -t rsa -q -f #{ssh_key} -C\"#{node['site-reviewtypo3org']['mq-worker']['gerrit']['user']}@#{node['gerrit']['hostname']}\""
-  user "gerrit"
+  user app_owner
   creates ssh_key
   #not_if { File.exists?ssh_key }
 end
@@ -110,8 +112,8 @@ end
 
 # create a proper gerrit.yml for the worker
 template "#{deploy_base}/shared/config/gerrit.yml" do
-  owner      "gerrit"
-  group      "gerrit"
+  owner      app_owner
+  group      app_group
   source     "worker/gerrit.yml.erb"
   variables({
     :data => {
@@ -130,8 +132,8 @@ deploy_revision "mq-worker-reviewtypo3org" do
   deploy_to      deploy_base
   repository     "https://github.com/TYPO3-infrastructure/mq-worker-reviewtypo3org"
   migrate        false
-  user           "gerrit"
-  group          "gerrit"
+  user           app_owner
+  group          app_group
   symlink_before_migrate ({
     'config/amqp.yml' => 'config/amqp.yml',
     'config/gerrit.yml' => 'config/gerrit.yml'
@@ -139,13 +141,13 @@ deploy_revision "mq-worker-reviewtypo3org" do
   before_symlink do
 
     directory "#{deploy_base}/shared/log" do
-      owner "gerrit"
-      group "gerrit"
+      owner app_owner
+      group app_group
     end
 
     execute "bundle install --path=vendor/bundle --without development test" do
       cwd release_path
-      user           "gerrit"
+      user app_owner
     end
 
   end
@@ -156,8 +158,8 @@ end
 include_recipe "runit"
 
 runit_service "mq-worker-reviewtypo3org" do
-  owner          "gerrit"
-  group          "gerrit"
+  owner          app_owner
+  group          app_group
   default_logger true
   options ({
     :deploy_base => deploy_base}.merge(params)
