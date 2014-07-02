@@ -98,6 +98,21 @@ execute "generate private ssh key for 'Gerrit Code Review' user" do
   #not_if { File.exists?ssh_key }
 end
 
+# add ssh_known_hosts for gerrit ssh
+ssh_known_hosts "#{gerrit_host}:#{gerrit_ssh_port}" do
+  user app_owner
+end
+
+# ssh_config
+ssh_config "#{gerrit_host}" do
+  options ({
+    'User' => "#{mq_gerrit_user}",
+    'IdentityFile' => "~/.ssh/#{ssh_key_filename}",
+    'Port' => "#{gerrit_ssh_port}"
+  })
+  user app_owner
+end
+
 Chef::Recipe.send(:include, Gerrit::Helpers)
 ruby_block "site-review mq-worker create gerrit mq user" do
   block do
