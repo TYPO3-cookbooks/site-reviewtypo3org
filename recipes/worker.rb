@@ -33,7 +33,7 @@ admin_key_file = node['gerrit']['home'] + "/.ssh/id_rsa-#{admin_user}"
 gerrit_host = node['gerrit']['hostname']
 
 mq_gerrit_user = node['site-reviewtypo3org']['mq-worker']['gerrit']['user']
-mq_gerrit_user_fullname = node['site-reviewtypo3org']['mq-worker']['gerrit']['user_name']
+mq_gerrit_user_fullname = node['site-reviewtypo3org']['mq-worker']['gerrit']['user_fullname']
 mq_gerrit_user_email = node['site-reviewtypo3org']['mq-worker']['gerrit']['user_email']
 
 
