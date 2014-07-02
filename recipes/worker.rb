@@ -28,6 +28,14 @@ gerrit_ssh_port = '29418'
 app_owner = 'gerrit'
 app_group = 'gerrit'
 
+admin_user = node['gerrit']['batch_admin_user']['username']
+admin_key_file = node['gerrit']['home'] + "/.ssh/id_rsa-#{admin_user}"
+gerrit_host = node['gerrit']['hostname']
+
+mq_gerrit_user = node['site-reviewtypo3org']['mq-worker']['gerrit']['user']
+mq_gerrit_user_email = node['site-reviewtypo3org']['mq-worker']['gerrit']['user_email']
+
+
 # create group and user
 group "#{app_group}" do
   system true
@@ -82,9 +90,9 @@ end
 
 # create ssh key for mq-worker to connect to gerrit
 ssh_key_filename = "id_rsa-#{node['site-reviewtypo3org']['mq-worker']['gerrit']['user']}"
-ssh_key = node['gerrit']['home'] + "/.ssh/" + ssh_key_filename
+ssh_key = deploy_base + "/.ssh/" + ssh_key_filename
 execute "generate private ssh key for 'Gerrit Code Review' user" do
-  command "ssh-keygen -t rsa -q -f #{ssh_key} -C\"#{node['site-reviewtypo3org']['mq-worker']['gerrit']['user']}@#{node['gerrit']['hostname']}\""
+  command "ssh-keygen -t rsa -q -f #{ssh_key} -C\"#{mq_gerrit_user_email}\""
   user app_owner
   creates ssh_key
   #not_if { File.exists?ssh_key }
@@ -93,18 +101,9 @@ end
 Chef::Recipe.send(:include, Gerrit::Helpers)
 ruby_block "site-review mq-worker create gerrit mq user" do
   block do
-    admin_user = node['gerrit']['batch_admin_user']['username']
-    admin_key_file = node['gerrit']['home'] + "/.ssh/id_rsa-#{admin_user}"
-    gerrit_host = node['gerrit']['hostname']
-       
-    mq_gerrit_user = node['site-reviewtypo3org']['mq-worker']['gerrit']['user'] 
-    mq_gerrit_user_email = node['site-reviewtypo3org']['mq-worker']['gerrit']['user_email']
-    
     has_mq_user = ssh_can_connect?(mq_gerrit_user, ssh_key, gerrit_host, gerrit_ssh_port)
-    puts has_mq_user
     unless has_mq_user then
       has_admin_user = ssh_can_connect?(admin_user, admin_key_file, gerrit_host, gerrit_ssh_port)
-      puts has_admin_user
       if has_admin_user
         public_key_content = Shellwords.shellescape(File.read("#{ssh_key}.pub"))
         gerrit_create_cmd = "gerrit create-account --group \"Non-Interactive\\ Users\" --group \"Administrators\" --full-name \"mq\\ worker\\ batch\" --email \"#{mq_gerrit_user_email}\" --ssh-key \"#{public_key_content}\" #{mq_gerrit_user}"
