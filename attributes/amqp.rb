@@ -4,8 +4,8 @@ default['site-reviewtypo3org']['amqp']['server'] = nil
 default['site-reviewtypo3org']['amqp']['user'] = nil
 default['site-reviewtypo3org']['amqp']['vhost'] = nil
 default['site-reviewtypo3org']['mq-worker']['gerrit']['user'] = 'gerrit-mq-worker'
-default['site-reviewtypo3org']['mq-worker']['gerrit']['user_name'] = 'Gerrit MQ Worker'
-default['site-reviewtypo3org']['mq-worker']['gerrit']['user_email'] = 'admin+gerrit-mq-worker@typo3.org'
+default['site-reviewtypo3org']['mq-worker']['git']['user_name'] = 'Gerrit MQ Worker'
+default['site-reviewtypo3org']['mq-worker']['git']['user_email'] = 'admin+gerrit-mq-worker@typo3.org'
 
 
 # override defaults for production

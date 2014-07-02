@@ -147,7 +147,8 @@ template "#{deploy_base}/shared/config/gerrit.yml" do
   variables({
     :data => {
       :user => node['site-reviewtypo3org']['mq-worker']['gerrit']['user'],
-      :user_email => node['site-reviewtypo3org']['mq-worker']['gerrit']['user_email'],
+      :git_user_email => node['site-reviewtypo3org']['mq-worker']['git']['user_email'],
+      :git_user_name => node['site-reviewtypo3org']['mq-worker']['git']['user_name'],
       :host => node['gerrit']['hostname'],
       :port => gerrit_ssh_port,
     }
