@@ -28,6 +28,19 @@ gerrit_ssh_port = '29418'
 app_owner = 'gerrit'
 app_group = 'gerrit'
 
+# create group and user
+group "#{app_group}" do
+  system true
+end
+
+user "#{app_owner}" do
+  gid "#{app_group}"
+  home "#{deploy_base}"
+  comment "MQ Worker for review"
+  shell "/bin/bash"
+  system true
+end
+
 # create shared config directory
 [deploy_base, "#{deploy_base}/shared", "#{deploy_base}/shared/config"].each do |dir|
   directory dir do
@@ -162,6 +175,8 @@ runit_service "mq-worker-reviewtypo3org" do
   group          app_group
   default_logger true
   options ({
-    :deploy_base => deploy_base}.merge(params)
+    :deploy_base => deploy_base,
+    :app_owner => app_owner,
+    :app_group => app_group}.merge(params)
   )
 end

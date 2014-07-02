@@ -2,5 +2,5 @@
 exec 2>&1
 echo 'mq-worker-gerrittypo3org starting.'
 cd "<%= @options[:deploy_base] %>/current/"
-exec chpst -ugerrit:gerrit \
+exec chpst -u<%= @options[:app_owner] %>:<%= @options[:app_group] %> \
     bundle exec bin/worker
