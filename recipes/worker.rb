@@ -25,8 +25,8 @@ package "ruby"
 package "bundler"
 
 gerrit_ssh_port = '29418'
-app_owner = 'gerrit'
-app_group = 'gerrit'
+app_owner = 'mqwreview'
+app_group = 'mqwreview'
 
 admin_user = node['gerrit']['batch_admin_user']['username']
 admin_key_file = node['gerrit']['home'] + "/.ssh/id_rsa-#{admin_user}"
