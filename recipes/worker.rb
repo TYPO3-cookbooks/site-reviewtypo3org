@@ -124,6 +124,7 @@ ruby_block "site-review mq-worker create gerrit mq user" do
         public_key_content = Shellwords.shellescape(File.read("#{ssh_key}.pub"))
         fullname = Shellwords.shellescape(mq_gerrit_user_fullname)
         gerrit_create_cmd = "gerrit create-account --group \"Non-Interactive\\ Users\" --group \"Administrators\" --full-name \"#{fullname}\" --email \"#{mq_gerrit_user_email}\" --ssh-key \"#{public_key_content}\" #{mq_gerrit_user}"
+        Chef::Log.info "Will create Gerrit user: #{mq_gerrit_user} on #{gerrit_host}"
         create_mq_user_shell =  Mixlib::ShellOut.new("ssh -o StrictHostKeyChecking=no -i #{admin_key_file} -p #{gerrit_ssh_port} -l #{admin_user} #{gerrit_host} #{gerrit_create_cmd}")
         create_mq_user_shell.run_command
         if create_mq_user_shell.error?
@@ -135,6 +136,8 @@ ruby_block "site-review mq-worker create gerrit mq user" do
         msg = "mq-worker cant connect to gerrit and also cant be created, pls fix manually: #{admin_user} #{admin_key_file} #{gerrit_host}"
         raise "#{msg}"
       end
+    else
+       Chef::Log.info "Gerrit user: #{mq_gerrit_user} can connect to #{gerrit_host}"
     end
   end
 end
