@@ -33,6 +33,7 @@ admin_key_file = node['gerrit']['home'] + "/.ssh/id_rsa-#{admin_user}"
 gerrit_host = node['gerrit']['hostname']
 
 mq_gerrit_user = node['site-reviewtypo3org']['mq-worker']['gerrit']['user']
+mq_gerrit_user_fullname = node['site-reviewtypo3org']['mq-worker']['gerrit']['user_name']
 mq_gerrit_user_email = node['site-reviewtypo3org']['mq-worker']['gerrit']['user_email']
 
 
@@ -121,7 +122,8 @@ ruby_block "site-review mq-worker create gerrit mq user" do
       has_admin_user = ssh_can_connect?(admin_user, admin_key_file, gerrit_host, gerrit_ssh_port)
       if has_admin_user
         public_key_content = Shellwords.shellescape(File.read("#{ssh_key}.pub"))
-        gerrit_create_cmd = "gerrit create-account --group \"Non-Interactive\\ Users\" --group \"Administrators\" --full-name \"mq\\ worker\\ batch\" --email \"#{mq_gerrit_user_email}\" --ssh-key \"#{public_key_content}\" #{mq_gerrit_user}"
+        fullname = Shellwords.shellescape(mq_gerrit_user_fullname)
+        gerrit_create_cmd = "gerrit create-account --group \"Non-Interactive\\ Users\" --group \"Administrators\" --full-name \"#{fullname}\" --email \"#{mq_gerrit_user_email}\" --ssh-key \"#{public_key_content}\" #{mq_gerrit_user}"
         create_mq_user_shell =  Mixlib::ShellOut.new("ssh -o StrictHostKeyChecking=no -i #{admin_key_file} -p #{gerrit_ssh_port} -l #{admin_user} #{gerrit_host} #{gerrit_create_cmd}")
         create_mq_user_shell.run_command
         if create_mq_user_shell.error?
