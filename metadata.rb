@@ -5,6 +5,7 @@ license          "Apache 2.0"
 description      "Installs/configures something"
 version          "0.1.2"
 
+depends "ssh"
 depends "ssl_certificates"
 depends "t3-gerrit"
 depends "gerrit"
