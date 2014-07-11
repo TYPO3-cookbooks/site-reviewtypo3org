@@ -1,13 +1,9 @@
-site :opscode
+source "https://api.berkshelf.com"
 
 metadata
 
-cookbook "mysql", "~> 3.0"
-
-%w[
-  gerrit
-  ssl_certificates
-].each do |cb|
-  cookbook cb, github: "TYPO3-cookbooks/#{cb}"
-end
-
+cookbook "ssh", github: "markolson/chef-ssh"
+cookbook "t3-chef-vault", github: "TYPO3-cookbooks/t3-chef-vault"
+cookbook "ssl_certificates", github: "TYPO3-cookbooks/ssl_certificates"
+cookbook "gerrit", github: "TYPO3-cookbooks/gerrit", branch: "refactoring"
+cookbook 't3-gerrit', git: 'ssh://review.typo3.org/Teams/Server/Chef.git', branch: 'feature/t3-gerrit-replication', rel: 'site-cookbooks/t3-gerrit'

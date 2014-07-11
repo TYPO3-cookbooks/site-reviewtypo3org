@@ -2,15 +2,27 @@
 driver:
   name: vagrant
 
+
 provisioner:
-  name: chef_solo
+  name: chef_zero
 
 platforms:
-  - name: ubuntu-12.04
-  - name: centos-6.4
+- name: debian-7.4
+  run_list:
+  - recipe[apt::default]
+  driver_config:
+    provision_command:
+    - apt-get update
+    - apt-get install cron -y
 
 suites:
   - name: default
     run_list:
-      - recipe[skeleton::default]
+      - recipe[site-reviewtypo3org::default]
     attributes:
+      # this makes chef-vault use plaintext data bags
+      dev_mode: true
+      site-reviewtypo3org:
+        amqp:
+          server: mq.typo3.vagrant
+          user: reviewtypo3org
