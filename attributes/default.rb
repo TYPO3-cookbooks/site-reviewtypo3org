@@ -1,3 +1,5 @@
+default['gerrit']['version'] = "2.9"
+
 default['git']['hostname'] = "dev.git.typo3.org"
 default['git']['hostname'] = "git.typo3.org" if node.chef_environment == "production"
 
