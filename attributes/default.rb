@@ -1,5 +1,5 @@
-default['gerrit']['version'] = "2.9.1"
-default['gerrit']['war']['download_url'] = "http://gerrit-releases.storage.googleapis.com/gerrit-2.9.1.war"
+default['gerrit']['version'] = "2.9.2"
+default['gerrit']['war']['download_url'] = "http://gerrit-releases.storage.googleapis.com/gerrit-2.9.2.war"
 
 default['git']['hostname'] = "dev.git.typo3.org"
 default['git']['hostname'] = "git.typo3.org" if node.chef_environment == "production"
