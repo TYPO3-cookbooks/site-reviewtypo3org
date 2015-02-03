@@ -1,5 +1,5 @@
 remote_file "#{node['gerrit']['install_dir']}/plugins/rabbitmq.jar" do
-  source "https://github.com/rinrinne/gerrit-rabbitmq-plugin/releases/download/rabbitmq-1.4/rabbitmq-1.4-2.8.5.jar"
+  source "https://github.com/TYPO3-infrastructure/gerrit-rabbitmq-plugin/releases/download/rabbitmq-1.5-SNAPSHOT-20150203154700/rabbitmq-1.5-SNAPSHOT-20150203154700.jar"
   owner node['gerrit']['user']
   group node['gerrit']['group']
 end
@@ -20,4 +20,5 @@ template "#{node['gerrit']['install_dir']}/etc/rabbitmq.config" do
       :password => amqp_pass
     }
   )
+  notifies :restart, "service[gerrit]"
 end
