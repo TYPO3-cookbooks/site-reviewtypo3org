@@ -1,7 +1,7 @@
 [amqp]
-  uri = <%= amqp.uri %>
-  username = <%= amqp.username %>
-  password = <%= amqp.password %>
+  uri = <%= @amqp[:uri] %>
+  username = <%= @amqp[:username] %>
+  password = <%= @amqp[:password] %>
 [queue]
   name = org.typo3.review.events
   decralation = true
