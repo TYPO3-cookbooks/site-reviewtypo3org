@@ -10,8 +10,8 @@ template "#{node['gerrit']['install_dir']}/etc/rabbitmq.config" do
   group node['gerrit']['group']
   variables(
     :amqp => {
-      :uri => "amqp://mq.typo3.org/test",
-      :username => "test",
+      :uri => "amqp://#{node['site-reviewtypo3org']['amqp']['server']}/#{node['site-reviewtypo3org']['amqp']['vhost']}",
+      :username => node['site-reviewtypo3org']['amqp']['user'],
       :password => "test"
     }
   )
