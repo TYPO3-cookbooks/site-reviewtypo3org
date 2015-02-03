@@ -1,0 +1,31 @@
+[amqp]
+  uri = <%= amqp.uri %>
+  username = <%= amqp.username %>
+  password = <%= amqp.password %>
+[queue]
+  name = org.typo3.review.events
+  decralation = true
+  durable = true
+  autoDelete = false
+  exclusive = false
+[exchange]
+  name = org.typo3.review.events
+  declaration = true
+  type = fanout
+  durable = false
+  autoDelete = false
+[bind]
+  startUp = true
+  routingKey = org.typo3.review.events
+[message]
+  deliveryMode = 1
+  priority = 0
+  routingKey = org.typo3.review.events
+[gerrit]
+  name = review
+  hostname = review.typo3.org
+  scheme = ssh
+  port = 24918
+[monitor]
+  interval = 15000
+  failureCount = 15
