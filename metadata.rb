@@ -7,6 +7,6 @@ version          "0.1.24"
 
 depends "ssh", "= 0.6.6"
 depends "ssl_certificates", "= 1.1.3"
-depends "t3-gerrit", "= 0.4.20"
+depends "t3-gerrit", "= 0.4.22"
 depends "gerrit", "= 0.4.5"
 depends "t3-chef-vault", "= 1.0.1"
