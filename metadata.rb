@@ -3,7 +3,7 @@ maintainer       "Steffen Gebert / TYPO3 Association"
 maintainer_email "steffen.gebert@typo3.org"
 license          "Apache 2.0"
 description      "Installs/configures something"
-version          "0.1.30"
+version          "0.1.31"
 
 depends "ssh", "= 0.6.6"
 depends "ssl_certificates", "= 1.1.3"
