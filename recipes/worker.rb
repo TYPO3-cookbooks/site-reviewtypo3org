@@ -38,16 +38,22 @@ mq_gerrit_user_email = node['site-reviewtypo3org']['mq-worker']['gerrit']['user_
 
 
 # create group and user
-group "#{app_group}" do
+group app_group do
   system true
 end
 
-user "#{app_owner}" do
-  gid "#{app_group}"
-  home "#{deploy_base}"
+user app_owner do
+  gid app_group
+  home deploy_base
   comment "MQ Worker for review"
   shell "/bin/bash"
   system true
+  notifies :reload, "ohai[reload_passwd]", :immediately
+end
+
+ohai "reload_passwd" do
+  action :nothing
+  plugin "etc"
 end
 
 # create shared config directory
@@ -69,6 +75,7 @@ else
 
   # read AMQP password from chef-vault
   include_recipe "t3-chef-vault"
+  Chef::Log.warn "Retrieving password for #{node['site-reviewtypo3org']['amqp']['server']}, #{node['site-reviewtypo3org']['amqp']['user']}, ENV #{node['chef_environment']}"
   amqp_pass = chef_vault_password(node['site-reviewtypo3org']['amqp']['server'], node['site-reviewtypo3org']['amqp']['user'])
 
 end
@@ -105,11 +112,11 @@ ssh_known_hosts "#{gerrit_host}:#{gerrit_ssh_port}" do
 end
 
 # ssh_config
-ssh_config "#{gerrit_host}" do
+ssh_config gerrit_host do
   options ({
-    'User' => "#{mq_gerrit_user}",
+    'User' => mq_gerrit_user,
     'IdentityFile' => "~/.ssh/#{ssh_key_filename}",
-    'Port' => "#{gerrit_ssh_port}"
+    'Port' => gerrit_ssh_port
   })
   user app_owner
 end
@@ -134,12 +141,13 @@ ruby_block "site-review mq-worker create gerrit mq user" do
         end
       else
         msg = "mq-worker cant connect to gerrit and also cant be created, pls fix manually: #{admin_user} #{admin_key_file} #{gerrit_host}"
-        raise "#{msg}"
+        raise msg
       end
     else
        Chef::Log.info "Gerrit user: #{mq_gerrit_user} can connect to #{gerrit_host}"
     end
   end
+  ignore_failure true
 end
 
 # create a proper gerrit.yml for the worker
