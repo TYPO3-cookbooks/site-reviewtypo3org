@@ -4,6 +4,7 @@ default['gerrit']['war']['download_url'] = "http://gerrit-releases.storage.googl
 default['git']['hostname'] = "dev.git.typo3.org"
 default['git']['hostname'] = "git.typo3.org" if node.chef_environment == "production"
 
+default['gerrit']['config']['gerrit']['canonicalWebUrl'] = "https://#{node['gerrit']['hostname']}/"
 default['gerrit']['config']['database']['type'] = "MYSQL"
 default['gerrit']['config']['database']['database'] = "gerrit"
 default['gerrit']['config']['auth']['type'] = "HTTP"
