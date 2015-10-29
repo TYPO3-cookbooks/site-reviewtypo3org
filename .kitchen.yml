@@ -51,10 +51,12 @@ suites:
         amqp:
           server: mq.typo3.vagrant
           user: reviewtypo3org
+          vhost: test
       site-reviewtypo3org:
         amqp:
           server: mq.typo3.vagrant
           user: reviewtypo3org
+          vhost: test
       gitweb:
         hostname: git.typo3.vagrant
         ssl_certificate: "wildcard.vagrant"
