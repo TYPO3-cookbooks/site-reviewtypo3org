@@ -7,7 +7,7 @@ version          "0.1.37"
 
 depends "ssh", "= 0.6.6"
 depends "ssl_certificates", "= 1.1.3"
-depends "t3-gerrit", "= 0.4.30"
+depends "t3-gerrit", "= 0.4.31"
 depends "t3-chef-vault", "= 1.0.1"
 depends "apt", "= 2.7.0"
 depends "runit"
