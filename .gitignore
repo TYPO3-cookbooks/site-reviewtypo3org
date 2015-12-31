@@ -6,7 +6,6 @@
 /vendor/gems/
 
 # Berkshelf
-/Berksfile.lock
 /cookbooks/
 /vendor/cookbooks/
 
