@@ -2,7 +2,7 @@
 driver:
   name: vagrant
   customize:
-    memory: 2048
+    memory: 4096
     cpus: 4
   synced_folders:
   - ['.', '/tmp/vagrant']
@@ -44,9 +44,7 @@ suites:
           auth:
             registerEmailPrivateKey: 123123123
             restTokenPrivateKey: 123123123
-#        version: 2.9.2
-#        war:
-#          download_url: http://gerrit-releases.storage.googleapis.com/gerrit-2.9.2.war
+        version: 2.12
       site-gittypo3org:
         amqp:
           server: mq.typo3.vagrant
