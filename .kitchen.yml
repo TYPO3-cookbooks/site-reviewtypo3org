@@ -44,7 +44,7 @@ suites:
           auth:
             registerEmailPrivateKey: 123123123
             restTokenPrivateKey: 123123123
-        version: 2.12
+        # version: 2.12
       site-gittypo3org:
         amqp:
           server: mq.typo3.vagrant
@@ -55,6 +55,13 @@ suites:
           server: mq.typo3.vagrant
           user: reviewtypo3org
           vhost: test
+        hostname: review.vagrant
+        canonicalWebUrl: https://review.vagrant
+        canonicalGitUrl: git://git.vagrant
+        proxy:
+          ssl_cabundle: /etc/ssl_certs/wildcard.vagrant.ca-bundle
+          ssl_certfile: /etc/ssl_certs/wildcard.vagrant.crt
+          ssl_keyfile: /etc/ssl_certs/wildcard.vagrant.key
       gitweb:
-        hostname: git.typo3.vagrant
-        ssl_certificate: "wildcard.vagrant"
+        hostname: git.vagrant
+        ssl_certificate: wildcard.vagrant
