@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+
+include_recipe "t3-base"
 include_recipe "ssl_certificates"
 
 include_recipe "t3-gerrit"

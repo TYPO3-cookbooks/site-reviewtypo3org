@@ -5,9 +5,11 @@ license          "Apache 2.0"
 description      "Installs/configures something"
 version          "0.2.0"
 
-depends "ssh", "= 0.6.6"
-depends "ssl_certificates", "= 1.1.3"
-depends "t3-gerrit", "~> 0.5.0"
-depends "t3-chef-vault", "= 1.0.1"
-depends "apt", "= 2.7.0"
-depends "runit"
+depends "t3-base",           "~> 0.2.0"
+
+depends "ssl_certificates",  "~> 1.1.0"
+depends "t3-gerrit",         "~> 0.5.0"
+depends "t3-chef-vault",     "~> 1.0.0"
+
+depends "ssh",               "= 0.6.6"
+depends "runit",             "= 1.7.6"
