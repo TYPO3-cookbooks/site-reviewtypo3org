@@ -26,3 +26,7 @@ include_recipe "t3-gerrit"
 include_recipe "site-reviewtypo3org::apache"
 include_recipe "site-reviewtypo3org::worker"
 include_recipe "site-reviewtypo3org::amqp-publisher"
+
+include_recipe "site-gittypo3org"
+# this has to run after inclusion of site-gittypo3org
+include_recipe "t3-gerrit::replication"

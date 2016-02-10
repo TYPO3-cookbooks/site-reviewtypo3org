@@ -7,6 +7,7 @@ version          "0.2.0"
 
 depends "t3-base",           "~> 0.2.0"
 
+depends "site-gittypo3org",  "~> 0.1.0"
 depends "ssl_certificates",  "~> 1.1.0"
 depends "t3-gerrit",         "~> 0.5.0"
 depends "t3-chef-vault",     "~> 1.0.0"
