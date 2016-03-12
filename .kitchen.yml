@@ -23,12 +23,7 @@ provisioner:
 
 platforms:
 - name: debian-7.8
-  run_list:
-  - recipe[apt::default]
-  driver_config:
-    provision_command:
-    - apt-get update
-    - apt-get install cron -y
+- name: debian-8.2
 
 suites:
   - name: default
