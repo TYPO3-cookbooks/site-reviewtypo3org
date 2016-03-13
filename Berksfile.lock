@@ -129,7 +129,7 @@ GRAPH
     t3-chef-vault (= 1.0.1)
     t3-gitweb (= 0.1.8)
     zabbix-custom-checks (~> 0.2.1)
-  site-reviewtypo3org (0.2.2)
+  site-reviewtypo3org (0.2.3)
     runit (= 1.7.6)
     site-gittypo3org (~> 0.1.0)
     ssh (= 0.6.6)
