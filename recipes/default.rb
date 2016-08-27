@@ -18,11 +18,9 @@
 #
 
 
-## Otherwise the chef_gem[mysql] fails to install on Debian 7
-if node['platform'] == "debian" && node['platform_version'].to_f < 8
-  build_essential 'install_packages' do
-    compile_time true
-  end
+## Otherwise the chef_gem[mysql] fails to install
+build_essential 'install_packages' do
+  compile_time true
 end
 include_recipe "t3-mysql::server"
 include_recipe "t3-mysql::backup"
