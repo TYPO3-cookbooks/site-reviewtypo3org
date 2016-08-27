@@ -49,14 +49,10 @@ suites:
           ssl_keyfile: /etc/ssl_certs/wildcard.vagrant.key
       site-gittypo3org:
         amqp:
-          server: mq.typo3.vagrant
-          user: reviewtypo3org
-          vhost: test
+          server:
       site-reviewtypo3org:
         amqp:
-          server: mq.typo3.vagrant
-          user: reviewtypo3org
-          vhost: test
+          server:
       gitweb:
         hostname: git.vagrant
         ssl_certificate: wildcard.vagrant
