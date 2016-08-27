@@ -1,4 +1,4 @@
-default['gerrit']['version'] = "2.12.2"
+default['gerrit']['version'] = "2.12.4"
 
 default['gerrit']['hostname'] = "review.typo3.org"
 
