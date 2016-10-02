@@ -23,7 +23,7 @@ provisioner:
 
 platforms:
 - name: debian-7.8
-- name: debian-8.2
+- name: debian-8.5
 
 suites:
   - name: default
