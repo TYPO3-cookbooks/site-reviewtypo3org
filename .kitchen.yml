@@ -22,8 +22,18 @@ provisioner:
   name: chef_zero
 
 platforms:
-- name: debian-7.8
-- name: debian-8.5
+  - name: debian-7.8
+    attributes:
+      apt:
+        compile_time_update: true
+    run_list:
+      - recipe[apt::default]
+  - name: debian-8.5
+    attributes:
+      apt:
+        compile_time_update: true
+    run_list:
+      - recipe[apt::default]
 
 suites:
   - name: default
@@ -31,7 +41,7 @@ suites:
       - recipe[site-reviewtypo3org::default]
       - recipe[site-gittypo3org]
       - recipe[t3-gerrit::replication]
-    attributes:
+    attributes: &DEFAULT_ATTRIBUTES
       # this makes chef-vault use plaintext data bags
       dev_mode: true
       gerrit:
@@ -40,6 +50,44 @@ suites:
             registerEmailPrivateKey: 123123123
             restTokenPrivateKey: 123123123
         # version: 2.12
+        hostname: review.vagrant
+        canonicalWebUrl: https://review.vagrant
+        canonicalGitUrl: git://git.vagrant
+        proxy:
+          ssl_cabundle: /etc/ssl_certs/wildcard.vagrant.crt
+          ssl_certfile: /etc/ssl_certs/wildcard.vagrant.crt
+          ssl_keyfile: /etc/ssl_certs/wildcard.vagrant.key
+      site-gittypo3org:
+        amqp:
+          server:
+      site-reviewtypo3org:
+        amqp:
+          server:
+      gitweb:
+        hostname: git.vagrant
+        ssl_certificate: wildcard.vagrant
+
+  - name: gerrit213
+    run_list:
+      - recipe[site-reviewtypo3org::default]
+      - recipe[site-gittypo3org]
+      - recipe[t3-gerrit::replication]
+    attributes:
+      <<: *DEFAULT_ATTRIBUTES
+      # this makes chef-vault use plaintext data bags
+      dev_mode: true
+      gerrit:
+        version: 2.13.1
+        core_plugins:
+          - replication
+          - commit-message-length-validator
+          - reviewnotes
+          - download-commands
+          - hooks
+        config:
+          auth:
+            registerEmailPrivateKey: 123123123
+            restTokenPrivateKey: 123123123
         hostname: review.vagrant
         canonicalWebUrl: https://review.vagrant
         canonicalGitUrl: git://git.vagrant

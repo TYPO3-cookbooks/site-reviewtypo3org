@@ -5,3 +5,6 @@ solver :ruby, :required
 
 metadata
 
+group :integration do
+  cookbook 'apt'
+end
