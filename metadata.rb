@@ -14,6 +14,6 @@ depends "t3-gerrit",         "~> 0.6.0"
 depends "t3-chef-vault",     "~> 1.0.0"
 depends "t3-mysql",          "~> 0.1.3"
 
-depends "php",               "= 1.1.2"
+depends "php",               "= 1.5.0"
 depends "ssh",               "= 0.6.6"
 depends "build-essential" ,  "= 6.0.4"
