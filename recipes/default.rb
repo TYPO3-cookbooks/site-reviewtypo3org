@@ -30,9 +30,6 @@ include_recipe "ssl_certificates"
 
 include_recipe "t3-gerrit"
 
-include_recipe "site-reviewtypo3org::apache"
-
-
 
 include_recipe "site-gittypo3org"
 # this has to run after inclusion of site-gittypo3org
