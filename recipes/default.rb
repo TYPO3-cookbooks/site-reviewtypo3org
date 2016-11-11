@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 
+include_recipe "t3-base"
 
 ## Otherwise the chef_gem[mysql] fails to install
 build_essential 'install_packages' do
@@ -25,13 +26,9 @@ end
 include_recipe "t3-mysql::server"
 include_recipe "t3-mysql::backup"
 
-include_recipe "t3-base"
 include_recipe "ssl_certificates"
 
 include_recipe "t3-gerrit"
-
-include_recipe "site-reviewtypo3org::apache"
-
 
 
 include_recipe "site-gittypo3org"
