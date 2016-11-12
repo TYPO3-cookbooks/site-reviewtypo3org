@@ -9,8 +9,8 @@ depends "t3-base",           "~> 0.2.51"
 
 depends "site-gittypo3org",  "~> 1.0.0"
 depends "ssl_certificates",  "~> 1.1.0"
-depends "gerrit",            "~> 0.6.0"
-depends "t3-gerrit",         "~> 0.6.2"
+depends "gerrit",            "~> 1.0.0"
+depends "t3-gerrit",         "~> 1.0.0"
 depends "t3-chef-vault",     "~> 1.0.0"
 depends "t3-mysql",          "~> 0.1.3"
 
