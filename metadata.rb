@@ -3,12 +3,11 @@ maintainer       "Steffen Gebert / TYPO3 Association"
 maintainer_email "steffen.gebert@typo3.org"
 license          "Apache 2.0"
 description      "Installs/configures something"
-version          "1.1.0"
+version          "1.1.1"
 
 depends "t3-base",           "~> 0.2.51"
 
 depends "site-gittypo3org",  "~> 1.0.0"
-depends "ssl_certificates",  "~> 1.1.0"
 depends "gerrit",            "~> 1.0.0"
 depends "t3-gerrit",         "~> 1.0.0"
 depends "t3-chef-vault",     "~> 1.0.0"

@@ -26,8 +26,6 @@ end
 include_recipe "t3-mysql::server"
 include_recipe "t3-mysql::backup"
 
-include_recipe "ssl_certificates"
-
 include_recipe "t3-gerrit"
 
 

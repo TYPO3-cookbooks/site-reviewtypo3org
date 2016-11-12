@@ -10,4 +10,3 @@ default['gerrit']['config']['auth']['type'] = "HTTP"
 default['gerrit']['config']['auth']['cookieSecure'] = true
 default['gerrit']['config']['auth']['gitBasicAuth'] = true
 default['gerrit']['batch_admin_user']['enabled'] = true
-default['gerrit']['proxy']['ssl'] = false
