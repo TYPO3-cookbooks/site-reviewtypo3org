@@ -33,17 +33,17 @@ Further, automatic updates (by `gerrit init`) are supported.
 * `node['site-reviewtypo3org']['mq-worker']['gerrit']['user_fullname']` -  Defaults to `Gerrit MQ Worker`.
 * `node['site-reviewtypo3org']['mq-worker']['gerrit']['user_email']` -  Defaults to `admin+gerrit-mq-worker@typo3.org`.
 * `node['site-reviewtypo3org']['amqp']` -  Defaults to `{ ... }`.
-* `node['gerrit']['version']` -  Defaults to `2.12.6`.
-* `node['gerrit']['hostname']` -  Defaults to `review.typo3.org`.
-* `node['gerrit']['config']['gerrit']['canonicalWebUrl']` -  Defaults to `https://#{node['gerrit']['hostname']}/`.
-* `node['gerrit']['config']['gerrit']['canonicalGitUrl']` -  Defaults to `git://#{node['gerrit']['hostname']}`.
+* `node['gerrit']['version']` - Gerrit version. Defaults to `2.12.6`.
+* `node['gerrit']['hostname']` - Gerrit host name. Defaults to `review.typo3.org`.
+* `node['gerrit']['config']['gerrit']['canonicalWebUrl']` - Gerrit's URL (used in emails etc). Defaults to `https://#{node['gerrit']['hostname']}/`.
+* `node['gerrit']['config']['gerrit']['canonicalGitUrl']` - Gerrit's Git URL (used in emails etc). Defaults to `git://#{node['gerrit']['hostname']}`.
 * `node['gerrit']['config']['httpd']['listenUrl']` - Signal to Gerrit that our proxy speaks HTTPS. As gerrit::proxy sets this with 'normal' precedence, we have to 'override' here. Defaults to `proxy-https://127.0.0.1:8080`.
-* `node['gerrit']['config']['database']['type']` -  Defaults to `MYSQL`.
-* `node['gerrit']['config']['database']['database']` -  Defaults to `gerrit`.
-* `node['gerrit']['config']['auth']['type']` -  Defaults to `HTTP`.
-* `node['gerrit']['config']['auth']['cookieSecure']` -  Defaults to `true`.
-* `node['gerrit']['config']['auth']['gitBasicAuth']` -  Defaults to `true`.
-* `node['gerrit']['batch_admin_user']['enabled']` -  Defaults to `true`.
+* `node['gerrit']['config']['database']['type']` - Database type. Defaults to `MYSQL`.
+* `node['gerrit']['config']['database']['database']` - Database name. Defaults to `gerrit`.
+* `node['gerrit']['config']['auth']['type']` - Use HTTP for authentication. Defaults to `HTTP`.
+* `node['gerrit']['config']['auth']['cookieSecure']` - Set cookieSecure attribute. Defaults to `true`.
+* `node['gerrit']['config']['auth']['gitBasicAuth']` - Use HTTP basic auth for Git via HTTP (instead of additional HTTP passwords). Defaults to `true`.
+* `node['gerrit']['batch_admin_user']['enabled']` - Automatically create a user in Gerrit for batch commands. Defaults to `true`.
 * `node['git']['hostname']` -  Defaults to `git.typo3.org`.
 * `node['git-daemon']['home']` -  Defaults to `/var/git`.
 * `node['git-daemon']['path']` -  Defaults to `/var/git/repositories`.
