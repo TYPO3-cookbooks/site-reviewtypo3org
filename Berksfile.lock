@@ -130,7 +130,7 @@ GRAPH
     t3-chef-vault (~> 1.0.1)
     t3-gitweb (~> 0.1.8)
     zabbix-custom-checks (~> 0.2.1)
-  site-reviewtypo3org (1.1.2)
+  site-reviewtypo3org (1.1.3)
     build-essential (= 6.0.4)
     gerrit (~> 1.0.0)
     php (= 1.5.0)
