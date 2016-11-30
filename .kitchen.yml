@@ -17,9 +17,11 @@ driver:
           registerEmailPrivateKey: 123123123
           restTokenPrivateKey: 123123123
 
-
 provisioner:
   name: chef_zero
+
+verifier:
+  name: inspec
 
 platforms:
   - name: debian-7.8
