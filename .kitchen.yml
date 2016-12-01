@@ -2,7 +2,7 @@
 driver:
   name: vagrant
   customize:
-    memory: 4096
+    memory: 1024
     cpus: 4
   synced_folders:
   - ['.', '/tmp/vagrant']
@@ -24,12 +24,6 @@ verifier:
   name: inspec
 
 platforms:
-  - name: debian-7.8
-    attributes:
-      apt:
-        compile_time_update: true
-    run_list:
-      - recipe[apt::default]
   - name: debian-8.5
     attributes:
       apt:
