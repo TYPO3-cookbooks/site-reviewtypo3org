@@ -1,0 +1,11 @@
+driver:
+  name: docker
+  use_sudo: false
+  run_command: /bin/systemd
+  cap_add:
+    - SYS_ADMIN
+  volume:
+    - /sys/fs/cgroup
+  provision_command:
+    - "echo 'kitchen ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers.d/kitchen"
+    - apt-get install -y net-tools cron
