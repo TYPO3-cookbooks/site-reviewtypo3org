@@ -41,7 +41,7 @@ GRAPH
     git (>= 0.0.0)
   firewall (2.5.3)
     chef-sugar (>= 0.0.0)
-  gerrit (1.0.3)
+  gerrit (1.0.5)
     apache2 (>= 0.0.0)
     build-essential (>= 0.0.0)
     database (= 1.3.12)
