@@ -53,12 +53,6 @@ suites:
           ssl_cabundle: /etc/ssl_certs/wildcard.vagrant.crt
           ssl_certfile: /etc/ssl_certs/wildcard.vagrant.crt
           ssl_keyfile: /etc/ssl_certs/wildcard.vagrant.key
-      site-gittypo3org:
-        amqp:
-          server:
-      site-reviewtypo3org:
-        amqp:
-          server:
       gitweb:
         hostname: git.vagrant
         ssl_certificate: wildcard.vagrant
@@ -91,12 +85,6 @@ suites:
           ssl_cabundle: /etc/ssl_certs/wildcard.vagrant.crt
           ssl_certfile: /etc/ssl_certs/wildcard.vagrant.crt
           ssl_keyfile: /etc/ssl_certs/wildcard.vagrant.key
-      site-gittypo3org:
-        amqp:
-          server:
-      site-reviewtypo3org:
-        amqp:
-          server:
       gitweb:
         hostname: git.vagrant
         ssl_certificate: wildcard.vagrant
