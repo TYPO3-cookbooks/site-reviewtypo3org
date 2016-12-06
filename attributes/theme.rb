@@ -1,8 +1,10 @@
+#<> Gerrit theme files (that are reloaded on the fly)
 default['gerrit']['theme']['compile_files'] = %w{
   GerritSiteHeader.html
   GerritSite.css
 }
 
+#<> Gerrit theme files (that require a restart)
 default['gerrit']['theme']['static_files'] = %w{
   401-redirect-to-wiki.html
   footer-logo.b9f2ba66aab906975d481c42d4.cache.gif
