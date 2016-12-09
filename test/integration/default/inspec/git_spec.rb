@@ -1,3 +1,5 @@
+require 'fileutils'
+
 control 'git-1' do
   title 'Git Setup'
   desc '
@@ -15,10 +17,27 @@ control 'git-1' do
     end
   end
 
-  # gitweb access
-  describe command('curl --resolve "git.vagrant:80:127.0.0.1" http://git.vagrant') do
+  work_dir = '/tmp/git-daemon_test-clone/'
+  # can clone a repository
+  describe command("git clone git://localhost/test/ #{work_dir}") do
+
+    before do
+      # command() only defines it in InSpec. Actually running happens once we ask for the result
+      command("rm -rf #{work_dir}").result
+    end
+
     its('exit_status') { should eq 0 }
-    its('stdout') { should include '<title>git.vagrant Git</title>' }
   end
 
+  # just make sure that we ran the recipe to copy over this file
+  describe file('/tmp/push-repo.sh') do
+    it { should exist }
+    it { should be_executable }
+  end
+
+  # this script is added in test/fixtures/cookbooks/site-reviewtypo3org_test/recipes/push_repo_script.rb
+  describe command("/tmp/push-repo.sh #{work_dir}") do
+    # 42 means pushing failed
+    its('exit_status') { should eq 42}
+  end
 end

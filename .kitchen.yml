@@ -37,6 +37,7 @@ suites:
       - recipe[site-reviewtypo3org::default]
       - recipe[site-gittypo3org]
       - recipe[t3-gerrit::replication]
+      - recipe[site-reviewtypo3org_test::default]
     attributes: &DEFAULT_ATTRIBUTES
       # this makes chef-vault use plaintext data bags
       dev_mode: true
@@ -62,6 +63,7 @@ suites:
       - recipe[site-reviewtypo3org::default]
       - recipe[site-gittypo3org]
       - recipe[t3-gerrit::replication]
+      - recipe[site-reviewtypo3org_tests::default]
     attributes:
       <<: *DEFAULT_ATTRIBUTES
       # this makes chef-vault use plaintext data bags
