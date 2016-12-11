@@ -12,7 +12,7 @@ control 'gerrit-2' do
   end
 
   # port 80 HTML
-  describe command('curl --resolve "review.vagrant:80:127.0.0.1" http://review.vagrant') do
+  describe command('curl http://review.vagrant') do
     its('exit_status') { should eq 0 }
     its('stdout') { should include '<title>Gerrit Code Review</title>' }
   end
