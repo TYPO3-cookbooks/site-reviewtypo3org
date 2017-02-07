@@ -22,7 +22,8 @@ control 'gerrit-1' do
   end
 
   # check heap limit (defined in t3-gerrit)
-  describe command('jmap -heap $(pgrep java) | grep MaxHeapSize') do
+  # jmap -heap <java-proc>
+  describe command('sudo -H -u gerrit jmap -heap $(pgrep java) | grep MaxHeapSize') do
     its('stdout') { should include '2048.0MB' }
   end
 end
