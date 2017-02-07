@@ -26,35 +26,27 @@ Further, automatic updates (by `gerrit init`) are supported.
 
 # Attributes
 
-* `node['site-reviewtypo3org']['amqp']['server']` -  Defaults to `nil`.
-* `node['site-reviewtypo3org']['amqp']['user']` -  Defaults to `nil`.
-* `node['site-reviewtypo3org']['amqp']['vhost']` -  Defaults to `nil`.
-* `node['site-reviewtypo3org']['mq-worker']['gerrit']['user']` -  Defaults to `gerrit-mq-worker`.
-* `node['site-reviewtypo3org']['mq-worker']['gerrit']['user_fullname']` -  Defaults to `Gerrit MQ Worker`.
-* `node['site-reviewtypo3org']['mq-worker']['gerrit']['user_email']` -  Defaults to `admin+gerrit-mq-worker@typo3.org`.
-* `node['site-reviewtypo3org']['amqp']` -  Defaults to `{ ... }`.
-* `node['gerrit']['version']` - Gerrit version. Defaults to `2.12.6`.
+* `node['gerrit']['version']` - Gerrit version. Defaults to `2.12.7`.
 * `node['gerrit']['hostname']` - Gerrit host name. Defaults to `review.typo3.org`.
 * `node['gerrit']['config']['gerrit']['canonicalWebUrl']` - Gerrit's URL (used in emails etc). Defaults to `https://#{node['gerrit']['hostname']}/`.
 * `node['gerrit']['config']['gerrit']['canonicalGitUrl']` - Gerrit's Git URL (used in emails etc). Defaults to `git://#{node['gerrit']['hostname']}`.
-* `node['gerrit']['config']['httpd']['listenUrl']` - Signal to Gerrit that our proxy speaks HTTPS. As gerrit::proxy sets this with 'normal' precedence, we have to 'override' here. Defaults to `proxy-https://127.0.0.1:8080`.
+* `node['gerrit']['config']['httpd']['listenUrl']` - Signal to Gerrit that our proxy speaks HTTPS. As gerrit::proxy sets this with 'normal' precedence, we have to 'override' here. Using ::1 instead of 127.0.0.1 prevents confusing inspec. Defaults to `proxy-https://[::1]:8080`.
 * `node['gerrit']['config']['database']['type']` - Database type. Defaults to `MYSQL`.
 * `node['gerrit']['config']['database']['database']` - Database name. Defaults to `gerrit`.
 * `node['gerrit']['config']['auth']['type']` - Use HTTP for authentication. Defaults to `HTTP`.
 * `node['gerrit']['config']['auth']['cookieSecure']` - Set cookieSecure attribute. Defaults to `true`.
 * `node['gerrit']['config']['auth']['gitBasicAuth']` - Use HTTP basic auth for Git via HTTP (instead of additional HTTP passwords). Defaults to `true`.
 * `node['gerrit']['batch_admin_user']['enabled']` - Automatically create a user in Gerrit for batch commands. Defaults to `true`.
-* `node['git']['hostname']` -  Defaults to `git.typo3.org`.
-* `node['git-daemon']['home']` -  Defaults to `/var/git`.
-* `node['git-daemon']['path']` -  Defaults to `/var/git/repositories`.
-* `node['gitweb']['path']` -  Defaults to `/var/git/repositories`.
-* `node['gitweb']['hostname']` -  Defaults to `git.typo3.org`.
-* `node['gerrit']['theme']['compile_files']` -  Defaults to `%w{`.
-* `node['gerrit']['theme']['static_files']` -  Defaults to `%w{`.
+* `node['git']['hostname']` - Git server hostname. Defaults to `git.typo3.org`.
+* `node['git-daemon']['home']` - Git user's home directory. Defaults to `/var/git`.
+* `node['git-daemon']['path']` - Path to Git repositories for Git Daemon. Defaults to `/var/git/repositories`.
+* `node['gitweb']['path']` - Path to Git repositories for Gitweb. Defaults to `/var/git/repositories`.
+* `node['gitweb']['hostname']` - Gitweb server hostname. Defaults to `git.typo3.org`.
+* `node['gerrit']['theme']['compile_files']` - Gerrit theme files (that are reloaded on the fly). Defaults to `%w{`.
+* `node['gerrit']['theme']['static_files']` - Gerrit theme files (that require a restart). Defaults to `%w{`.
 
 # Recipes
 
-* site-reviewtypo3org::amqp-publisher
 * site-reviewtypo3org::default
 
 Application Data
@@ -67,6 +59,8 @@ Application data resides in the following locations:
   - `/var/gerrit/review/git/`
 - SSH host keys of Gerrit SSH:
   - `/var/gerrit/review/etc/ssh_host_{r,d}sa_key{,.pub}`
+- SSH private keys for replication (otherwise auto-generated):
+  - `/var/gerrit/.ssh/id_rsa-replication-*`
 - [Secondary index](https://gerrit-documentation.storage.googleapis.com/Documentation/2.13/config-gerrit.html#index):
   - `/var/gerrit/review/index`
   - if empty, it has to be initialized using [offline reindex](https://gerrit-documentation.storage.googleapis.com/Documentation/2.13/pgm-reindex.html) first, which takes minutes to hours

@@ -3,7 +3,7 @@ maintainer       "Steffen Gebert / TYPO3 Association"
 maintainer_email "steffen.gebert@typo3.org"
 license          "Apache 2.0"
 description      "Installs/configures something"
-version          "1.1.4"
+version          "1.1.5"
 
 depends "t3-base",           "~> 0.2.51"
 
@@ -15,4 +15,3 @@ depends "t3-mysql",          "~> 0.1.3"
 
 depends "php",               "= 1.5.0"
 depends "ssh",               "= 0.6.6"
-depends "build-essential" ,  "= 6.0.4"

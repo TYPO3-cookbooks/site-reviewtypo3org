@@ -8,6 +8,8 @@ Application data resides in the following locations:
   - `/var/gerrit/review/git/`
 - SSH host keys of Gerrit SSH:
   - `/var/gerrit/review/etc/ssh_host_{r,d}sa_key{,.pub}`
+- SSH private keys for replication (otherwise auto-generated):
+  - `/var/gerrit/.ssh/id_rsa-replication-*`
 - [Secondary index](https://gerrit-documentation.storage.googleapis.com/Documentation/2.13/config-gerrit.html#index):
   - `/var/gerrit/review/index`
   - if empty, it has to be initialized using [offline reindex](https://gerrit-documentation.storage.googleapis.com/Documentation/2.13/pgm-reindex.html) first, which takes minutes to hours
