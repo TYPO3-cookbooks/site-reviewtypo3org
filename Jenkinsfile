@@ -1,2 +1,4 @@
-def pipe = new org.typo3.chefci.v1.Pipeline()
-pipe.execute()
+@Library('chefci') _
+org.typo3.chefci.v2.cookbook.CookbookPipeline.builder(this, steps)
+        .buildDefaultPipeline()
+        .execute()
