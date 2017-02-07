@@ -15,4 +15,3 @@ depends "t3-mysql",          "~> 0.1.3"
 
 depends "php",               "= 1.5.0"
 depends "ssh",               "= 0.6.6"
-depends "build-essential" ,  "= 6.0.4"
