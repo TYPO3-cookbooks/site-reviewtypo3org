@@ -57,36 +57,6 @@ suites:
       gitweb:
         hostname: git.vagrant
         ssl_certificate: wildcard.vagrant
+      mysql:
+        server_root_password: root
 
-  - name: gerrit213
-    run_list:
-      - recipe[site-reviewtypo3org::default]
-      - recipe[site-gittypo3org]
-      - recipe[t3-gerrit::replication]
-      - recipe[site-reviewtypo3org_test::default]
-    attributes:
-      <<: *DEFAULT_ATTRIBUTES
-      # this makes chef-vault use plaintext data bags
-      dev_mode: true
-      gerrit:
-        version: 2.13.1
-        core_plugins:
-          - replication
-          - commit-message-length-validator
-          - reviewnotes
-          - download-commands
-          - hooks
-        config:
-          auth:
-            registerEmailPrivateKey: 123123123
-            restTokenPrivateKey: 123123123
-        hostname: review.vagrant
-        canonicalWebUrl: https://review.vagrant
-        canonicalGitUrl: git://git.vagrant
-        proxy:
-          ssl_cabundle: /etc/ssl_certs/wildcard.vagrant.crt
-          ssl_certfile: /etc/ssl_certs/wildcard.vagrant.crt
-          ssl_keyfile: /etc/ssl_certs/wildcard.vagrant.key
-      gitweb:
-        hostname: git.vagrant
-        ssl_certificate: wildcard.vagrant
