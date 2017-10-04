@@ -8,6 +8,22 @@ control 'gerrit-1' do
     it { should exist }
   end
 
+  describe file('/var/gerrit/review/etc/gerrit.config') do
+    it { should exist }
+  end
+
+  describe ini('/var/gerrit/review/etc/gerrit.config') do
+    its('gerrit.reportBugUrl') { should cmp 'http://forge.typo3.org/projects/team-git' }
+    its('database.type') { should cmp 'MYSQL' }
+    its('auth.gitBasicAuth') { should cmp 'true' }
+    its('gc.interval') { should cmp '3 days' }
+    its('gc.startTime') { should cmp '3:00' }
+    its('httpd.listenUrl') { should cmp 'proxy-https://[::1]:8080' }
+    its('download.scheme') { should cmp 'anon_http' } # we can only check for the last occurrence wit the ini resource
+    its('sendemail.from') { should cmp 'Gerrit Code Review <gerrit_dontreply@typo3.org>' }
+    its('sendemail.includeDiff') { should cmp 'true' }
+  end
+
   [8080, 29418].each do |listen_port|
     describe port(listen_port) do
       it { should be_listening }
