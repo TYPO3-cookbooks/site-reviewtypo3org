@@ -12,4 +12,5 @@ end
 group :integration do
   cookbook 'apt'
   fixture 'site-reviewtypo3org_test'
+  fixture 'fix-ipv6-kitchen-dokken'
 end
