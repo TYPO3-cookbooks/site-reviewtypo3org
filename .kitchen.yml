@@ -2,15 +2,15 @@
 driver:
   name: vagrant
   customize:
-    memory: 1024
-    cpus: 4
+    memory: 4096
+    cpus: 8
   synced_folders:
   - ['.', '/tmp/vagrant']
   network:
   - ["forwarded_port", {guest: 80,  host: 8080, auto_correct: true}]
   - ["forwarded_port", {guest: 443, host: 8443, auto_correct: true}]
   - ["private_network", {ip: "192.168.88.11"}]
-  attributes: 
+  attributes:
     gerrit:
       config:
         auth:
@@ -19,12 +19,14 @@ driver:
 
 provisioner:
   name: chef_zero
+  config:
+    log_level: debug
 
 verifier:
   name: inspec
 
 platforms:
-  - name: debian-8.5
+  - name: debian-8.9
     attributes:
       apt:
         compile_time_update: true
@@ -35,25 +37,21 @@ suites:
   - name: default
     run_list:
       - recipe[site-reviewtypo3org::default]
-      - recipe[site-gittypo3org]
-      - recipe[t3-gerrit::replication]
       - recipe[site-reviewtypo3org_test::default]
-    attributes: &DEFAULT_ATTRIBUTES
-      # this makes chef-vault use plaintext data bags
-      dev_mode: true
+    attributes:
       gerrit:
         config:
           auth:
             registerEmailPrivateKey: 123123123
             restTokenPrivateKey: 123123123
+            cookieSecure: false
+          gerrit:
+#            canonicalWebUrl: http://review.vagrant
+            canonicalWebUrl: http://192.168.88.11:8080/
+            canonicalGitUrl: git://git.vagrant
         # version: 2.12
         hostname: review.vagrant
-        canonicalWebUrl: https://review.vagrant
-        canonicalGitUrl: git://git.vagrant
-        proxy:
-          ssl_cabundle: /etc/ssl_certs/wildcard.vagrant.crt
-          ssl_certfile: /etc/ssl_certs/wildcard.vagrant.crt
-          ssl_keyfile: /etc/ssl_certs/wildcard.vagrant.key
+#        canonicalWebUrl: https://review.vagrant
       gitweb:
         hostname: git.vagrant
         ssl_certificate: wildcard.vagrant

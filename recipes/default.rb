@@ -26,9 +26,10 @@ end
 include_recipe "t3-mysql::server"
 include_recipe "t3-mysql::backup"
 
-include_recipe "t3-gerrit"
+include_recipe 'gerrit::default'
 
+include_recipe "#{cookbook_name}::to-refactor"
 
 include_recipe "site-gittypo3org"
 # this has to run after inclusion of site-gittypo3org
-include_recipe "t3-gerrit::replication"
+# include_recipe "t3-gerrit::replication"
