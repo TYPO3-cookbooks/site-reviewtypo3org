@@ -14,3 +14,6 @@ group :integration do
   fixture 'site-reviewtypo3org_test'
   fixture 'fix-ipv6-kitchen-dokken'
 end
+
+# cookbook 'gerrit', path: '../gerrit'
+# cookbook 't3-gerrit', path: '../../site-cookbooks/t3-gerrit'
