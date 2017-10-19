@@ -13,7 +13,7 @@ control 'gerrit-1' do
   end
 
   describe ini('/var/gerrit/review/etc/gerrit.config') do
-    its('gerrit.reportBugUrl') { should cmp 'http://forge.typo3.org/projects/team-git' }
+    its(['gerrit', 'reportBugUrl']) { should cmp 'http://forge.typo3.org/projects/team-git' }
     its('database.type') { should cmp 'MYSQL' }
     its('auth.gitBasicAuth') { should cmp 'true' }
     its('gc.interval') { should cmp '3 days' }
