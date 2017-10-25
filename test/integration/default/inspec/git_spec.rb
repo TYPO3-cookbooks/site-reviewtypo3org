@@ -13,7 +13,7 @@ control 'git-1' do
   [9418].each do |listen_port|
     describe port(listen_port) do
       it { should be_listening }
-      its('protocols') { should include 'tcp6'}
+      its('protocols') { should include 'tcp'}
     end
   end
 
