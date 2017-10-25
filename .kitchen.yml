@@ -46,12 +46,9 @@ suites:
             restTokenPrivateKey: 123123123
             cookieSecure: false
           gerrit:
-#            canonicalWebUrl: http://review.vagrant
             canonicalWebUrl: http://192.168.88.11:8080/
             canonicalGitUrl: git://git.vagrant
-        # version: 2.12
         hostname: review.vagrant
-#        canonicalWebUrl: https://review.vagrant
       gitweb:
         hostname: git.vagrant
         ssl_certificate: wildcard.vagrant
