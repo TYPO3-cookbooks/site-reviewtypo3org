@@ -55,3 +55,25 @@ suites:
       mysql:
         server_root_password: root
 
+  - name: proxy
+    run_list:
+      - recipe[site-reviewtypo3org::default]
+      - recipe[site-reviewtypo3org_test::default]
+      - recipe[site-reviewtypo3org_test::proxy]
+    attributes:
+      gerrit:
+        config:
+          auth:
+            registerEmailPrivateKey: 123123123
+            restTokenPrivateKey: 123123123
+            cookieSecure: false
+          gerrit:
+            canonicalWebUrl: http://192.168.88.11:8080/
+            canonicalGitUrl: git://git.vagrant
+        hostname: review.vagrant
+      gitweb:
+        hostname: git.vagrant
+        ssl_certificate: wildcard.vagrant
+      mysql:
+        server_root_password: root
+
