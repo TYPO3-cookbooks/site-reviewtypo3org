@@ -1,0 +1,19 @@
+{
+  "id": "review.vagrant",
+  "name": "review.vagrant",
+  "nginx": {
+    "backend": "http://localhost:8080"
+  },
+  "haproxy": {
+    "review-29418": {
+      "mode": "tcp",
+      "bind": ":::39418 v4v6",
+      "params": {
+        "timeout tunnel": "3m"
+      },
+      "servers": [
+        "localhost localhost:29418 check"
+      ]
+    }
+  }
+}
