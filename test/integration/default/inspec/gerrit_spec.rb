@@ -22,6 +22,14 @@ control 'gerrit-1' do
     its(['download', 'scheme']) { should cmp 'anon_http' } # we can only check for the last occurrence wit the ini resource
     its(['sendemail', 'from']) { should cmp 'Gerrit Code Review <gerrit_dontreply@typo3.org>' }
     its(['sendemail', 'includeDiff']) { should cmp 'true' }
+    its(['ldap', 'password']) { should eq nil } # this has to be put into the secure.config
+    its(['auth', 'restTokenPrivateKey']) { should eq nil } # this has to be put into the secure.config
+  end
+
+  describe ini('/var/gerrit/review/etc/secure.config') do
+    its(['ldap', 'password']) { should eq 'thisIsTheLdapPassword' }
+    its(['auth', 'restTokenPrivateKey']) { should eq '/V6BpquTuJ8StIG2/a7J5hC6T/0ScgZ/UaNKvkX3gkNXCmyf=' }
+    its(['auth', 'registerEmailPrivateKey']) { should eq '3LvCMi6D0NGSGT0GCz1wuaeFploUYPcggt3LHYSd/MHiixfJ' }
   end
 
   [8080, 29418].each do |listen_port|

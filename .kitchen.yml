@@ -61,6 +61,7 @@ suites:
       - recipe[site-reviewtypo3org_test::default]
       - recipe[site-reviewtypo3org_test::proxy]
     attributes:
+      dev_mode: true
       gerrit:
         config:
           auth:
