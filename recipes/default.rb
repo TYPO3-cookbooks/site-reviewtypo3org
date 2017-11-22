@@ -25,6 +25,7 @@ include_recipe "t3-mysql::backup"
 include_recipe "#{cookbook_name}::_prerequisites"
 include_recipe 'gerrit::default'
 
+include_recipe "#{cookbook_name}::hooks"
 include_recipe "#{cookbook_name}::to-refactor"
 
 include_recipe "site-gittypo3org"
