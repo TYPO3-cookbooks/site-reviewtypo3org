@@ -9,5 +9,4 @@ end
 # systemd unit
 # heap space
 # secure config
-# include_recipe '::hooks'
 # include_recipe '::replication'
