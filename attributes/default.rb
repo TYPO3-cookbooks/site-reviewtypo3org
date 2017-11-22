@@ -21,5 +21,5 @@ default['gerrit']['batch_admin_user']['enabled'] = false
 #<> LDAP server
 default['gerrit']['config']['ldap']['server'] = 'ldaps://ldap.typo3.org'
 #<> LDAP username
-default['gerrit']['config']['ldap']['username'] = 'cn=review-dev.typo3.org,ou=services,dc=typo3,dc=org'
+default['gerrit']['config']['ldap']['username'] = 'cn=review.typo3.org,ou=services,dc=typo3,dc=org'
 

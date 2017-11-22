@@ -44,6 +44,9 @@ suites:
             registerEmailPrivateKey: 123123123
             restTokenPrivateKey: 123123123
             cookieSecure: false
+          ldap:
+            username: <%= ENV['GERRIT_LDAP_USER'] || 'cn=review-dev.typo3.org,ou=services,dc=typo3,dc=org' %>
+            password: <%= ENV['GERRIT_LDAP_PASSWORD'] %>
           gerrit:
             canonicalWebUrl: http://192.168.88.11:8080/
             canonicalGitUrl: git://git.vagrant
