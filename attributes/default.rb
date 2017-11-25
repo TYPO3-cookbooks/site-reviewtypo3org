@@ -22,4 +22,6 @@ default['gerrit']['batch_admin_user']['enabled'] = false
 default['gerrit']['config']['ldap']['server'] = 'ldaps://ldap.typo3.org'
 #<> LDAP username
 default['gerrit']['config']['ldap']['username'] = 'cn=review.typo3.org,ou=services,dc=typo3,dc=org'
+#<> Java Heap space
+default['gerrit']['config']['container']['heapLimit'] = '6g'
 

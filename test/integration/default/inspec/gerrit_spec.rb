@@ -45,10 +45,9 @@ control 'gerrit-1' do
     its('stdout') { should include '<title>Gerrit Code Review</title>' }
   end
 
-  # check heap limit (defined in t3-gerrit)
+  # check heap limit
   # jmap -heap <java-proc>
   describe command('sudo -H -u gerrit jmap -heap $(pgrep java) | grep MaxHeapSize') do
-    skip "FIXME later"
-    # its('stdout') { should include '2048.0MB' }
+    its('stdout') { should include '6144.0MB' }
   end
 end
