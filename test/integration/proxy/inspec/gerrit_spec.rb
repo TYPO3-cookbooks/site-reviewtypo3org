@@ -1,18 +1,18 @@
 control 'gerrit-proxy' do
   title 'Gerrit Proxy'
 
-  [80, 443].each do |listen_port|
-    describe port(listen_port) do
-      it { should be_listening }
-    end
-
-    describe command("curl --insecure --head #{listen_port == 80 ? 'http' : 'https'}://localhost:#{listen_port}") do
-      its('exit_status') { should eq 0 }
-      its('stdout') { should include 'HTTP/1.1 301' }
-      its('stdout') { should include 'Server: nginx' }
-    end
-
-  end
+  # [80, 443].each do |listen_port|
+  #  describe port(listen_port) do
+  #    it { should be_listening }
+  #  end
+  #
+  #   describe command("curl --insecure --head #{listen_port == 80 ? 'http' : 'https'}://localhost:#{listen_port}") do
+  #     its('exit_status') { should eq 0 }
+  #     its('stdout') { should include 'HTTP/1.1 301' }
+  #     its('stdout') { should include 'Server: nginx' }
+  #   end
+  #
+  # end
 end
 
 control 'gerrit-1' do
