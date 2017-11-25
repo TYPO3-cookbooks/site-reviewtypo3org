@@ -1,7 +1,8 @@
 #<> LDAP password should be stored in secure.config
 
-# this has to be defined before including the gerrit cookbook
+include_recipe 't3-chef-vault'
 
+# this has to be defined before including the gerrit cookbook
 node.normal['gerrit']['secure_config']['ldap']['password'] = true
 # TODO maybe use chef run_state to avoid storing this on the chef-server
 ldap_server = URI(node['gerrit']['config']['ldap']['server']).host
