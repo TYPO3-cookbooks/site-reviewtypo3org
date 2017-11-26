@@ -2,15 +2,14 @@
 driver:
   name: vagrant
   customize:
-    memory: 1024
-    cpus: 4
+    memory: 4096
+    cpus: 8
   synced_folders:
   - ['.', '/tmp/vagrant']
   network:
   - ["forwarded_port", {guest: 80,  host: 8080, auto_correct: true}]
   - ["forwarded_port", {guest: 443, host: 8443, auto_correct: true}]
-  - ["private_network", {ip: "192.168.88.11"}]
-  attributes: 
+  attributes:
     gerrit:
       config:
         auth:
@@ -19,12 +18,14 @@ driver:
 
 provisioner:
   name: chef_zero
+#  config:
+#    log_level: debug
 
 verifier:
   name: inspec
 
 platforms:
-  - name: debian-8.5
+  - name: debian-8.9
     attributes:
       apt:
         compile_time_update: true
@@ -35,58 +36,53 @@ suites:
   - name: default
     run_list:
       - recipe[site-reviewtypo3org::default]
-      - recipe[site-gittypo3org]
-      - recipe[t3-gerrit::replication]
-      - recipe[site-reviewtypo3org_test::default]
-    attributes: &DEFAULT_ATTRIBUTES
-      # this makes chef-vault use plaintext data bags
-      dev_mode: true
-      gerrit:
-        config:
-          auth:
-            registerEmailPrivateKey: 123123123
-            restTokenPrivateKey: 123123123
-        # version: 2.12
-        hostname: review.vagrant
-        canonicalWebUrl: https://review.vagrant
-        canonicalGitUrl: git://git.vagrant
-        proxy:
-          ssl_cabundle: /etc/ssl_certs/wildcard.vagrant.crt
-          ssl_certfile: /etc/ssl_certs/wildcard.vagrant.crt
-          ssl_keyfile: /etc/ssl_certs/wildcard.vagrant.key
-      gitweb:
-        hostname: git.vagrant
-        ssl_certificate: wildcard.vagrant
-
-  - name: gerrit213
-    run_list:
-      - recipe[site-reviewtypo3org::default]
-      - recipe[site-gittypo3org]
-      - recipe[t3-gerrit::replication]
       - recipe[site-reviewtypo3org_test::default]
     attributes:
-      <<: *DEFAULT_ATTRIBUTES
-      # this makes chef-vault use plaintext data bags
-      dev_mode: true
       gerrit:
-        version: 2.13.1
-        core_plugins:
-          - replication
-          - commit-message-length-validator
-          - reviewnotes
-          - download-commands
-          - hooks
         config:
           auth:
             registerEmailPrivateKey: 123123123
             restTokenPrivateKey: 123123123
+            cookieSecure: false
+          ldap:
+            username: <%= ENV['GERRIT_LDAP_USER'] || 'cn=review-dev.typo3.org,ou=services,dc=typo3,dc=org' %>
+            password: <%= ENV['GERRIT_LDAP_PASSWORD'] %>
+          gerrit:
+            canonicalWebUrl: http://192.168.88.11:8080/
+            canonicalGitUrl: git://git.vagrant
         hostname: review.vagrant
-        canonicalWebUrl: https://review.vagrant
-        canonicalGitUrl: git://git.vagrant
-        proxy:
-          ssl_cabundle: /etc/ssl_certs/wildcard.vagrant.crt
-          ssl_certfile: /etc/ssl_certs/wildcard.vagrant.crt
-          ssl_keyfile: /etc/ssl_certs/wildcard.vagrant.key
       gitweb:
         hostname: git.vagrant
         ssl_certificate: wildcard.vagrant
+      mysql:
+        server_root_password: root
+    driver_config:
+       network:
+         - ["private_network", {ip: "192.168.88.11"}]
+
+  - name: proxy
+    run_list:
+      - recipe[site-reviewtypo3org::default]
+      - recipe[site-reviewtypo3org_test::default]
+      # - recipe[site-reviewtypo3org_test::proxy]
+    attributes:
+      dev_mode: true
+      gerrit:
+        config:
+          auth:
+            registerEmailPrivateKey: 123123123
+            restTokenPrivateKey: 123123123
+            cookieSecure: false
+          gerrit:
+            canonicalWebUrl: http://192.168.88.11:8080/
+            canonicalGitUrl: git://git.vagrant
+        hostname: review.vagrant
+      gitweb:
+        hostname: git.vagrant
+        ssl_certificate: wildcard.vagrant
+      mysql:
+        server_root_password: root
+    driver_config:
+       network:
+         - ["private_network", {ip: "192.168.88.12"}]
+

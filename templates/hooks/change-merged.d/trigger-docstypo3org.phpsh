@@ -1,0 +1,110 @@
+#!/usr/bin/php
+<?php
+/**
+ * @api https://review.typo3.org/Documentation/config-hooks.html#_change_merged
+ *
+ * Martin Bless <martin@mbless.de>, 2013-05-15, 2013-05-17
+ *
+ * Test URL
+ * ---------
+ *
+./trigger-docstypo3org.phpsh \
+    --change     I7511a12935a6eff29593c0c19c895c625a703ceb \
+    --change-url http://review.typo3.org/1307 \
+    --project    FLOW3/Packages/SwiftMailer \
+    --branch     master \
+    --uploader   "Karsten Dambekalns (karsten@typo3.org)" \
+    --commit     d8074e04611b5c95ab788b39c9a505329c36964a \
+    --patchset   1
+
+
+ * Argument reference:
+ * --------------------
+ *
+ * $argv = array (
+ *     0 => '/var/gerrit/review/hooks/patchset-created',
+ *     1 => '--change',
+ *     2 => 'I7511a12935a6eff29593c0c19c895c625a703ceb',
+ *     3 => '--change-url',
+ *     4 => 'http://review.typo3.org/1307',
+ *     5 => '--project',
+ *     6 => 'FLOW3/Packages/SwiftMailer',
+ *     7 => '--branch',
+ *     8 => 'master',
+ *     9 => '--uploader',
+ *     10 => 'Karsten Dambekalns (karsten@typo3.org)',
+ *     11 => '--commit',
+ *     12 => 'd8074e04611b5c95ab788b39c9a505329c36964a',
+ *     13 => '--patchset',
+ *     14 => '1',
+ * );
+ */
+
+$args = array();
+$ignoredArgs = array();
+for ($i = 1; $i < $_SERVER['argc']; $i++) {
+    if (substr($_SERVER['argv'][$i], 0, 2) == '--') {
+        $optionName = substr($_SERVER['argv'][$i], 2);
+        $args[$optionName] = $_SERVER['argv'][$i + 1];
+        $i++;
+    } else {
+        // echo "Ignored unexpected parameter #" . $i . ": " . $_SERVER['argv'][$i];
+        $ignoredArgs[$i] = $_SERVER['argv'][$i];
+    }
+}
+if (1) {
+    // add some constants
+    $args['sender']        = $_SERVER['argv'][0];
+    $args['repositoryUrl'] = 'git://git.typo3.org/';
+    $args['ignoredArgs']   = $ignoredArgs;
+}
+
+if (0) {
+    // log input parameters
+    $parametersGiven = array();
+    foreach ($args as $key => $value) {
+        $parametersGiven[] = $key . ":" . $value;
+    }
+    echo "Executing hook file " . __FILE__ . " (" . implode(", ", $parametersGiven) . ")";
+    unset($parametersGiven);
+}
+
+$NL = "\n";
+$identifierOfThisScript = 'tell-docs-typo3-org';
+
+$destinationUrl = 'http://ubu239.mb.local/LinuxData200/git-typo3-org-change-merged.php';
+$destinationUrl = 'https://docs.typo3.org/php/git-typo3-org-change-merged.php';
+
+if (0) {
+    // here we would use the GET method for Fabien's service
+    $query = http_build_query($data);
+    $url = "http://docs.typo3.org/render/index.php/render?$query";
+    $http = curl_init($url);
+    $content = curl_exec($http);
+    $http_status = curl_getinfo($http, CURLINFO_HTTP_CODE);
+    curl_close($http);
+    if ($http_status == 200) { 'pass'; } else { 'pass'; }
+}
+if (1) {
+    // let's post the data as json string
+    $postfields = array('json' => json_encode($args));
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $destinationUrl);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $postfields);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $returnData = curl_exec($ch);
+    $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    if ($http_status == 200) { 'pass'; } else { 'pass'; }
+    if (0) {
+        // debug, develop, check
+        $f2name = "zzzlog-2.txt";
+        $f2 = fopen($f2name, 'w') or die("can't open file");
+        fwrite($f2, '$http_status: ' . $http_status . $NL);
+        fwrite($f2, '$returnData : ' . $returnData  . $NL);
+        fclose($f2);
+    }
+}
+
+?>

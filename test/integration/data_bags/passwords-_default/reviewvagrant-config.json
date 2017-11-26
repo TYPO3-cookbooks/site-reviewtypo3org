@@ -1,0 +1,5 @@
+{
+  "registerEmailPrivateKey": "3LvCMi6D0NGSGT0GCz1wuaeFploUYPcggt3LHYSd/MHiixfJ",
+  "restTokenPrivateKey": "/V6BpquTuJ8StIG2/a7J5hC6T/0ScgZ/UaNKvkX3gkNXCmyf=",
+  "comment": "These are really test keys, we're not leaking passwords here. Generated using `openssl rand -base64 36`"
+}
