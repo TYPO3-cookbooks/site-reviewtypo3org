@@ -18,8 +18,8 @@ driver:
 
 provisioner:
   name: chef_zero
-  config:
-    log_level: debug
+#  config:
+#    log_level: debug
 
 verifier:
   name: inspec
