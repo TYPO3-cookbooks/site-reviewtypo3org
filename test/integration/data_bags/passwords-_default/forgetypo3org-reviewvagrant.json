@@ -1,3 +1,4 @@
 {
-  "token": "123456"
+  "token": "123456",
+  "ssh_key": "id-rsa-foobar"
 }
