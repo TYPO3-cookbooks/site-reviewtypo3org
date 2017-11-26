@@ -1,5 +1,3 @@
-#<> LDAP password should be stored in secure.config
-
 include_recipe 't3-chef-vault'
 
 # this has to be defined before including the gerrit cookbook
