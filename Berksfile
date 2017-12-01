@@ -15,5 +15,4 @@ group :integration do
   fixture 'fix-ipv6-kitchen-dokken'
 end
 
-cookbook 'gerrit', path: '../gerrit'
-# cookbook 't3-gerrit', path: '../../site-cookbooks/t3-gerrit'
+# cookbook 'gerrit', path: '../gerrit'
