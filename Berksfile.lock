@@ -2,8 +2,6 @@ DEPENDENCIES
   apt
   fix-ipv6-kitchen-dokken
     path: test/fixtures/cookbooks/fix-ipv6-kitchen-dokken
-  gerrit
-    path: ../gerrit
   site-reviewtypo3org
     path: .
     metadata: true
@@ -46,7 +44,7 @@ GRAPH
   firewall (2.6.2)
     chef-sugar (>= 0.0.0)
   fix-ipv6-kitchen-dokken (0.0.1)
-  gerrit (2.0.2)
+  gerrit (2.0.5)
     apache2 (>= 0.0.0)
     build-essential (>= 0.0.0)
     database (= 1.3.12)
