@@ -2,8 +2,8 @@
 driver:
   name: vagrant
   customize:
-    memory: 4096
-    cpus: 8
+    memory: 2048
+    cpus: 4
   synced_folders:
   - ['.', '/tmp/vagrant']
   network:
