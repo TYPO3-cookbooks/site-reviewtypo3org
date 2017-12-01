@@ -50,4 +50,12 @@ control 'gerrit-1' do
   #describe command('jmap -heap $(pgrep java) | grep MaxHeapSize') do
   #  its('stdout') { should include '6144.0MB' }
   #end
+
+end
+
+
+control 'gerrit-2' do
+  title 'Gerrit Replication'
+  desc ''
+
 end

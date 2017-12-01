@@ -16,4 +16,3 @@ group :integration do
 end
 
 # cookbook 'gerrit', path: '../gerrit'
-# cookbook 't3-gerrit', path: '../../site-cookbooks/t3-gerrit'
