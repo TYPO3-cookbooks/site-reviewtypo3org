@@ -64,7 +64,7 @@ suites:
     run_list:
       - recipe[site-reviewtypo3org::default]
       - recipe[site-reviewtypo3org_test::default]
-      # - recipe[site-reviewtypo3org_test::proxy]
+      - recipe[site-reviewtypo3org_test::proxy]
     attributes:
       dev_mode: true
       gerrit:
@@ -74,8 +74,10 @@ suites:
             restTokenPrivateKey: 123123123
             cookieSecure: false
           gerrit:
-            canonicalWebUrl: http://192.168.88.11:8080/
+            canonicalWebUrl: https://review.vagrant
             canonicalGitUrl: git://git.vagrant
+          httpd:
+            listenUrl: proxy-https://0.0.0.0:8080
         hostname: review.vagrant
       gitweb:
         hostname: git.vagrant
