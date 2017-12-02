@@ -91,7 +91,7 @@ function putIssue(array $issue) {
 		unset($issue['issue']['id']);
 		fputs($fp, "Host: forge.typo3.org\r\n");
 			// the key belongs to user "gerrit-review"
-		fputs($fp, "Authorization: Basic " . base64_encode('<%= @token %>') . "\r\n");
+		fputs($fp, "Authorization: Basic " . base64_encode('<%= @token %>:') . "\r\n");
 		fputs($fp, "User-Agent: Gerrit Hook Script\r\n");
 		fputs($fp, "Content-Type: application/json\r\n");
 		fputs($fp, "Content-Length: " . strlen(json_encode($issue)) . "\r\n");
