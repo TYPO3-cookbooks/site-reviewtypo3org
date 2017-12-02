@@ -2,8 +2,8 @@
 driver:
   name: vagrant
   customize:
-    memory: 4096
-    cpus: 8
+    memory: 2048
+    cpus: 4
   synced_folders:
   - ['.', '/tmp/vagrant']
   network:
@@ -50,6 +50,8 @@ suites:
           gerrit:
             canonicalWebUrl: http://192.168.88.11:8080/
             canonicalGitUrl: git://git.vagrant
+          httpd:
+            listenUrl: http://0.0.0.0:8080
         hostname: review.vagrant
       gitweb:
         hostname: git.vagrant
@@ -64,7 +66,7 @@ suites:
     run_list:
       - recipe[site-reviewtypo3org::default]
       - recipe[site-reviewtypo3org_test::default]
-      # - recipe[site-reviewtypo3org_test::proxy]
+      - recipe[site-reviewtypo3org_test::proxy]
     attributes:
       dev_mode: true
       gerrit:
@@ -74,7 +76,7 @@ suites:
             restTokenPrivateKey: 123123123
             cookieSecure: false
           gerrit:
-            canonicalWebUrl: http://192.168.88.11:8080/
+            canonicalWebUrl: https://review.vagrant
             canonicalGitUrl: git://git.vagrant
         hostname: review.vagrant
       gitweb:

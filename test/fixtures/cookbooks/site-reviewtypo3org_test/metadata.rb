@@ -6,4 +6,4 @@ description      "Tests for site-reviewtypo3org"
 version          "0.0.0"
 
 depends "hostsfile", "= 2.4.5"
-# depends "site-proxytypo3org", "= 2.0.1"
+depends "site-proxytypo3org", "= 2.0.3"
