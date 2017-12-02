@@ -22,7 +22,6 @@ control 'gerrit-proxy' do
   # Gerrit SSH 39418 -> 29418
   describe port(39418) do
     it { should be_listening }
-    its('protocols') { should include 'tcp'}
   end
 end
 
