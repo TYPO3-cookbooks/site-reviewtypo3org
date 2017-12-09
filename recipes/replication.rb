@@ -23,6 +23,18 @@ gerrit_replication 'git-typo3-org' do
   ssh_key ssh_key
 end
 
+# place pubkey into /var/git/.ssh/
+ssh_pubkey = chef_vault_password(node['git']['hostname'], normalized_hostname, 'ssh_pubkey')
+directory File.join(node['git-daemon']['home'], '.ssh') do
+  owner node['git-daemon']['user']
+  group node['git-daemon']['group']
+end
+file File.join(node['git-daemon']['home'], '.ssh', 'authorized_keys') do
+  content ssh_pubkey
+  owner node['git-daemon']['user']
+  group node['git-daemon']['group']
+end
+
 #### Forge
 
 ssh_key = chef_vault_password('forge.typo3.org', normalized_hostname, 'ssh_key')
