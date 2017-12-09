@@ -19,7 +19,7 @@ end
 
 ssh_key = chef_vault_password(node['git']['hostname'], normalized_hostname, 'ssh_key')
 gerrit_replication 'git-typo3-org' do
-  uri "#{node['git-daemon']['user']}@#{node['git']['hostname']}:#{node['git-daemon']['home']}/repositories/${name}.git"
+  uri "#{node['git-daemon']['user']}@localhost:#{node['git-daemon']['home']}/repositories/${name}.git"
   ssh_key ssh_key
 end
 

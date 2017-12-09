@@ -69,7 +69,7 @@ control 'gerrit-2' do
     its('content') { should include 'github.com' }
   end
 
-  describe command('ssh -o StrictHostKeyChecking=no -i /var/gerrit/.ssh/replication_git.typo3.org git@localhost true') do
+  describe command('ssh -o StrictHostKeyChecking=no -i /var/gerrit/.ssh/replication_localhost git@localhost true') do
     its('exit_status') { should eq 0 }
   end
 end
