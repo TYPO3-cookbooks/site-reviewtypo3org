@@ -7,7 +7,7 @@ default['gerrit']['config']['gerrit']['canonicalWebUrl'] = "https://#{node['gerr
 #<> Gerrit's Git URL (used in emails etc)
 default['gerrit']['config']['gerrit']['canonicalGitUrl'] = "git://#{node['gerrit']['hostname']}"
 #<> Signal to Gerrit that our proxy speaks HTTPS.
-default['gerrit']['config']['httpd']['listenUrl'] = 'proxy-https://0.0.0.0:8080'
+default['gerrit']['config']['httpd']['listenUrl'] = 'proxy-https://*:8080/'
 #<> Database type
 default['gerrit']['config']['database']['type'] = "MYSQL"
 #<> Database name

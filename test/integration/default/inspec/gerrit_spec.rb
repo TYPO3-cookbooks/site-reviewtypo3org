@@ -18,7 +18,7 @@ control 'gerrit-1' do
     its(['auth', 'gitBasicAuth']) { should cmp 'true' }
     its(['gc', 'interval']) { should cmp '3 days' }
     its(['gc', 'startTime']) { should cmp '3:00' }
-    its(['httpd', 'listenUrl']) { should cmp 'http://0.0.0.0:8080' }
+    its(['httpd', 'listenUrl']) { should cmp 'http://*:8080/' } # even if we specify it without the trailing slash, `gerrit init` will add it
     its(['download', 'scheme']) { should cmp 'anon_http' } # we can only check for the last occurrence wit the ini resource
     its(['sendemail', 'from']) { should cmp 'Gerrit Code Review <gerrit_dontreply@typo3.org>' }
     its(['sendemail', 'includeDiff']) { should cmp 'true' }

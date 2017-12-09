@@ -51,7 +51,7 @@ suites:
             canonicalWebUrl: http://192.168.88.11:8080/
             canonicalGitUrl: git://git.vagrant
           httpd:
-            listenUrl: http://0.0.0.0:8080
+            listenUrl: http://*:8080/
         hostname: review.vagrant
       gitweb:
         hostname: git.vagrant
