@@ -18,7 +18,7 @@ control 'gerrit-1' do
     its(['auth', 'gitBasicAuth']) { should cmp 'true' }
     its(['gc', 'interval']) { should cmp '3 days' }
     its(['gc', 'startTime']) { should cmp '3:00' }
-    its(['httpd', 'listenUrl']) { should cmp 'http://0.0.0.0:8080/' }
+    its(['httpd', 'listenUrl']) { should cmp 'http://*:8080/' } # even if we specify it without the trailing slash, `gerrit init` will add it
     its(['download', 'scheme']) { should cmp 'anon_http' } # we can only check for the last occurrence wit the ini resource
     its(['sendemail', 'from']) { should cmp 'Gerrit Code Review <gerrit_dontreply@typo3.org>' }
     its(['sendemail', 'includeDiff']) { should cmp 'true' }
@@ -56,6 +56,20 @@ end
 
 control 'gerrit-2' do
   title 'Gerrit Replication'
-  desc ''
+  desc 'Verifies correct replication setup'
 
+  describe file('/var/gerrit/.ssh/replication_github.com') do
+    it { should exist }
+    its('content') { should eq 'privatekey123456github' }
+    its('owner') { should eq 'gerrit'}
+  end
+
+  describe file('/var/gerrit/.ssh/known_hosts') do
+    it { should exist }
+    its('content') { should include 'github.com' }
+  end
+
+  describe command('ssh -o StrictHostKeyChecking=no -i /var/gerrit/.ssh/replication_git.typo3.org git@localhost true') do
+    its('exit_status') { should eq 0 }
+  end
 end

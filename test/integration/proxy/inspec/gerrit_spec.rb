@@ -35,7 +35,7 @@ control 'gerrit-1' do
   end
 
   describe ini('/var/gerrit/review/etc/gerrit.config') do
-    its(['httpd', 'listenUrl']) { should cmp 'proxy-https://0.0.0.0:8080' }
+    its(['httpd', 'listenUrl']) { should cmp 'proxy-https://*:8080/' }
 
   end
 
