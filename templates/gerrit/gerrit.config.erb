@@ -7,7 +7,7 @@
 	reportBugUrl = http://forge.typo3.org/projects/team-git
 	serverId = 7798dc65-df04-4128-aaa3-dc27bf14c709
 [database]
-	type = <%= node['gerrit']['config']['database']['type'] %>
+	type = <%= node['gerrit']['config']['database']['type'].downcase %>
 	database = <%= node['gerrit']['config']['database']['database'] %>
 	hostname = <%= node['gerrit']['config']['database']['hostname'] %>
 	username = <%= node['gerrit']['config']['database']['username'] %>
@@ -97,7 +97,7 @@
 	allowRemoteAdmin = true
 
 [receive]
-	enableSignedPush = false
+	enableSignedPush = true
 [ldap]
 	server = <%= node['gerrit']['config']['ldap']['server'] %>
 	username = <%= node['gerrit']['config']['ldap']['username'] %>
