@@ -1,0 +1,35 @@
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  var trackedUrl=window.location.protocol + "//" + window.location.host + window.location.pathname + window.location.hash.replace(/#\//, '');
+  _paq.push(['setCustomUrl', trackedUrl]);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik.typo3.org/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 32]);
+    _paq.push(['setDoNotTrack', true]);
+  var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+
+  // custom code for GWT (one page app)
+  function gerritPiwik() {
+    // there seems no better way to make sure that Gerrit is already completely initialized
+    if (typeof Gerrit == "undefined") {
+      setTimeout(gerritPiwik, 100);
+    } else {
+      Gerrit.on('history', function (s) {
+        // Gerrit.url() has a trailing slash, s has a leading - thus remove one
+        var trackedUrl = Gerrit.url() + s.replace(/^\//, '');
+        _paq.push(['setDocumentTitle', document.title]);
+        _paq.push(['setCustomUrl', trackedUrl]);
+        _paq.push(['trackPageView']);
+      })
+    }
+  }
+
+  window.onload = gerritPiwik();
+</script>
+<!-- End Piwik Code -->
