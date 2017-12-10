@@ -26,6 +26,7 @@ include_recipe '::_prerequisites'
 include_recipe 'gerrit::default'
 
 include_recipe '::hooks'
+include_recipe '::theme'
 include_recipe '::to-refactor'
 
 include_recipe 'site-gittypo3org'

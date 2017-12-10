@@ -21,6 +21,7 @@ ssh_key = chef_vault_password(node['git']['hostname'], normalized_hostname, 'ssh
 gerrit_replication 'git-typo3-org' do
   uri "#{node['git-daemon']['user']}@localhost:#{node['git-daemon']['home']}/repositories/${name}.git"
   ssh_key ssh_key
+  hostname 'localhost'
 end
 
 # place pubkey into /var/git/.ssh/
@@ -41,6 +42,7 @@ ssh_key = chef_vault_password('forge.typo3.org', normalized_hostname, 'ssh_key')
 gerrit_replication 'forge-typo3-org' do
   uri 'git@forge.typo3.org:repositories/${name}.git'
   ssh_key ssh_key
+  hostname 'srv173.typo3.org'
 end
 
 #### replication config ####
