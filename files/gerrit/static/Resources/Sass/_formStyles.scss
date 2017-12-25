@@ -190,3 +190,19 @@
     }
   }
 }
+
+#error_message {
+	position: absolute;
+  top: 0;
+  margin: $base-margin auto;
+
+	border: 0;
+  border-left: 5px solid $colorError;
+  background: $opaque-white;
+  padding: $base-margin;
+
+  color: $colorErrorPastel;
+  font-size: 1.0em;
+
+  @include prefix(box-shadow, $heavyShadow);
+}
