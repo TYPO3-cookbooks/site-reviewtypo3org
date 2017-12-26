@@ -11,8 +11,10 @@
       passwordField = document.getElementById("f_pass");
 
       showBody();
-      renderPlaceholder();
-      renderErrorMessage();
+      if (form.length > 0) {
+        renderPlaceholder();
+        renderErrorMessage();
+      }
     }
 
     /**
@@ -22,14 +24,13 @@
      * @return {void}
      */
     function showBody() {
-      window.onload = function() {
-        setTimeout(function() {
-          var body = document.getElementsByTagName("body");
-          if (body.length) {
-            body[0].style.visibility = "visible";
-          }
-        }, 500);
-      };
+      setTimeout(function() {
+        var body = document.getElementsByTagName("body");
+        console.log(body);
+        if (body.length) {
+          body[0].style.visibility = "visible";
+        }
+      }, 500);
     }
 
     /**
@@ -58,7 +59,7 @@
     /**
      * The error message will be rendered outside the login form.
      * So this method will move the markup after the password field.
-     * 
+     *
      * @return {void}
      */
     function renderErrorMessage() {
@@ -69,7 +70,9 @@
       }
     }
 
-    init();
+    window.onload = function() {
+      init();
+    };
     return this;
   })();
 }
