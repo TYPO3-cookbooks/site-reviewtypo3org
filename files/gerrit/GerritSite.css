@@ -1,4 +1,4 @@
-@import url('/static/Resources/StyleSheets/GerritSiteStyles.css');
+@import url('/static/Resources/StyleSheets/GerritSiteStyles.min.css');
 
 body {
   visibility: hidden;
