@@ -1,19 +1,6 @@
 <!-- Piwik -->
 <script type="text/javascript">
   /**
-  * To prevent that the user sees the old UI and get the flickering we hide
-  * the body and make it visible again.
-  *
-  * @return {void}
-  */
-  function showBody() {
-    var body = document.getElementsByTagName('body');
-    if (body.length) {
-      body[0].style.visibility = 'visible';
-    }
-  }
-
-  /**
   * This is a bit hacky but if I add another script tag gerrit is not starting anymore.
   * So we add here the JS include for element queries.
   *
@@ -25,6 +12,8 @@
     script.src = url;
     document.head.appendChild(script);
   }
+
+  dynamicallyLoadScript('/static/Resources/JavaScript/Form.js');
   dynamicallyLoadScript('/static/libraries/eqcss/EQCSS.min.js');
 
   // Piwik code starts here
@@ -60,10 +49,6 @@
 
   window.onload = function() {
     gerritPiwik();
-    setTimeout(
-      function(){
-        showBody();
-      }, 500);
     }
 </script>
 <!-- End Piwik Code -->
