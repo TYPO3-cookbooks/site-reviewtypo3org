@@ -12,6 +12,6 @@ default['gerrit']['theme']['static_files'] = %w{
   typo3.css
   gerrit-styles_1515270490.cache.css
   bundle_1515270490.cache.js
-  progressive_image_lake-sF27CHQAzJC535.jpg
-  typo3-orange.svg
+  progressive_image_lake-sF27CHQAzJC535.cache.jpg
+  typo3-orange_1515269305.cache.svg
 }
