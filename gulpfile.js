@@ -8,6 +8,7 @@ var gulp = require("gulp"),
   util = require("gulp-util"),
   rename = require("gulp-rename"),
   replace = require("gulp-string-replace"),
+  del = require("del"),
   sourcemaps = require("gulp-sourcemaps");
 
 var config = {
@@ -22,7 +23,7 @@ var config = {
   cacheIdentifier: Math.round(+new Date() / 1000) + ".cache"
 };
 
-gulp.task("default", ["build-css", "build-js", "write-attributes"]);
+gulp.task("default", ["clean-up", "build-css", "build-js", "write-attributes"]);
 
 gulp.task("build-css", function() {
   return gulp
@@ -60,6 +61,13 @@ gulp.task("write-attributes", function() {
         return file.base;
       })
     );
+});
+
+gulp.task("clean-up", function() {
+  return del([
+    "files/gerrit/static/gerrit-styles_*.cache.css",
+    "files/gerrit/static/bundle_*.cache.js"
+  ]);
 });
 
 /* updated watch task to include sass and js */
