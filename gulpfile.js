@@ -27,7 +27,7 @@ const config = {
 /**
  * Main task
  * Before we start the build process we clean up the old files.
- * 
+ *
  * @return {void}
  */
 gulp.task("default", ["clean-up"], function() {
@@ -38,7 +38,7 @@ gulp.task("default", ["clean-up"], function() {
  * Build task
  * - Compile sass files to css and minify the new css styles
  * - Concatenate the js files and uglify the bundle
- * 
+ *
  * @return {void}
  */
 gulp.task("build", ["build-css", "build-js"], function() {
@@ -53,7 +53,7 @@ gulp.task("build", ["build-css", "build-js"], function() {
  * - Adjust the attributes for the theme
  * - Include the gerrit css bundle to the static main css file
  * - Load the new js bundle in the footer template
- * 
+ *
  * @return {void}
  */
 gulp.task("update-sources", [
@@ -64,7 +64,7 @@ gulp.task("update-sources", [
 
 /**
  * Handle all the SASS files and compile them to minified css.
- * 
+ *
  * @return {void}
  */
 gulp.task("build-css", function() {
@@ -80,7 +80,7 @@ gulp.task("build-css", function() {
 
 /**
  * Handle all the js files and concat them to a uglified bundle.
- * 
+ *
  * @return {void}
  */
 gulp.task("build-js", function() {
@@ -95,17 +95,22 @@ gulp.task("build-js", function() {
 
 /**
  * Update the theme attributes
- * 
+ *
  * @return {void}
  */
 gulp.task("write-attributes", function() {
   gulp
     .src([config.attributes])
-    .pipe(replace("bundle.js", "bundle_" + config.cacheIdentifier + ".js"))
     .pipe(
       replace(
-        "gerrit-styles.css",
+        new RegExp("(gerrit-styles_)\\d{10}.cache.css", "g"),
         "gerrit-styles_" + config.cacheIdentifier + ".css"
+      )
+    )
+    .pipe(
+      replace(
+        new RegExp("(bundle_)\\d{10}.cache.js", "g"),
+        "bundle_" + config.cacheIdentifier + ".js"
       )
     )
     .pipe(
@@ -117,7 +122,7 @@ gulp.task("write-attributes", function() {
 
 /**
  * Update css include
- * 
+ *
  * @return {void}
  */
 gulp.task("write-styles", function() {
@@ -125,7 +130,7 @@ gulp.task("write-styles", function() {
     .src([config.mainCss])
     .pipe(
       replace(
-        "{{gerrit-styles}}",
+        new RegExp("(gerrit-styles_)\\d{10}.cache.css", "g"),
         "gerrit-styles_" + config.cacheIdentifier + ".css"
       )
     )
@@ -138,13 +143,18 @@ gulp.task("write-styles", function() {
 
 /**
  * Update js include
- * 
+ *
  * @return {void}
  */
 gulp.task("write-javascript", function() {
   gulp
     .src([config.template])
-    .pipe(replace("{{bundled-js}}", "bundle_" + config.cacheIdentifier + ".js"))
+    .pipe(
+      replace(
+        new RegExp("(bundle_)\\d{10}.cache.js", "g"),
+        "bundle_" + config.cacheIdentifier + ".js"
+      )
+    )
     .pipe(
       gulp.dest(function(file) {
         return file.base;
@@ -154,7 +164,7 @@ gulp.task("write-javascript", function() {
 
 /**
  * Remove all old js bundle and css files.
- * 
+ *
  * @return {void}
  */
 gulp.task("clean-up", function() {
