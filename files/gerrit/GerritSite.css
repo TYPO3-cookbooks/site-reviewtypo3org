@@ -1,4 +1,4 @@
-@import url('/static/gerrit-styles_1515269305.cache.css');
+@import url('/static/gerrit-styles_1515270490.cache.css');
 
 body {
   visibility: hidden;
@@ -10,7 +10,7 @@ body {
 	$root { height: 100%; }
 	$root body { 
 		height: 100%;
-		background-image: url(/static/progressive_image_lake-sF27CHQAzJC535.jpg) ;
+		background-image: url(/static/progressive_image_lake-sF27CHQAzJC535.cache.jpg);
 		background-position: center center;
 		background-repeat:  no-repeat;
 		background-attachment: fixed;
