@@ -2,24 +2,27 @@
 
 var gulp = require("gulp"),
   sass = require("gulp-sass"),
-  concat = require('gulp-concat'),
-  uglify = require('gulp-uglify'),
-  minifyCSS = require('gulp-minify-css'),
-  util = require('gulp-util'),
-  rename = require('gulp-rename'),
+  concat = require("gulp-concat"),
+  uglify = require("gulp-uglify"),
+  minifyCSS = require("gulp-minify-css"),
+  util = require("gulp-util"),
+  rename = require("gulp-rename"),
+  replace = require("gulp-string-replace"),
   sourcemaps = require("gulp-sourcemaps");
 
-
 var config = {
-  assetsDir: 'files/gerrit/Resources/',
-  destinationDir: 'files/gerrit/static',
-  sassPattern: 'Sass/**/*.scss',
-  jsPattern: 'JavaScript/**/*.js',
+  assetsDir: "files/gerrit/Resources/",
+  destinationDir: "files/gerrit/static",
+  attributes: "attributes/theme.rb",
+  template: "files/gerrit/GerritSiteFooter.html",
+  mainCss: "files/gerrit/GerritSite.css",
+  sassPattern: "Sass/**/*.scss",
+  jsPattern: "JavaScript/**/*.js",
   production: !!util.env.production,
-  cacheIdentifier: Math.round(+new Date()/1000) + '.cache'
+  cacheIdentifier: Math.round(+new Date() / 1000) + ".cache"
 };
 
-gulp.task("default", ["build-css", "build-js"]);
+gulp.task("default", ["build-css", "build-js", "write-attributes"]);
 
 gulp.task("build-css", function() {
   return gulp
@@ -40,6 +43,23 @@ gulp.task("build-js", function() {
     .pipe(config.production ? uglify() : util.noop())
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(config.destinationDir));
+});
+
+gulp.task("write-attributes", function() {
+  gulp
+    .src([config.attributes])
+    .pipe(replace("bundle.js", "bundle_" + config.cacheIdentifier + ".js"))
+    .pipe(
+      replace(
+        "gerrit-styles.css",
+        "gerrit-styles_" + config.cacheIdentifier + ".css"
+      )
+    )
+    .pipe(
+      gulp.dest(function(file) {
+        return file.base;
+      })
+    );
 });
 
 /* updated watch task to include sass and js */

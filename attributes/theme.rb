@@ -10,9 +10,8 @@ default['gerrit']['theme']['static_files'] = %w{
   s-buttons.2a9e3abb93e617254323a2f81b.cache.png
   typo3-logo.3512c0c5a9ad8c03b900fc7531e08.cache.png
   typo3.css
-  libraries/eqcss/EQCSS.min.js
-  Resources/JavaScript/Form.min.js
-  Resources/StyleSheets/GerritSiteStyles.min.css
+  gerrit-styles_1515263492.cache.css
+  bundle_1515263492.cache.js
   progressive_image_lake-sF27CHQAzJC535.jpg
   typo3-orange.svg
 }
