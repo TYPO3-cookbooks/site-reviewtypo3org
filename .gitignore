@@ -21,3 +21,7 @@
 
 # thor-scmversion
 VERSION
+
+# ignore sass cache
+*.scssc
+/node_modules
