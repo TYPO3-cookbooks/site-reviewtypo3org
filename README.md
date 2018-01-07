@@ -71,6 +71,18 @@ For the included [site-gittypo3org](https://github.com/typo3-cookbooks/site-gitt
 - Git daemon's git repos:
   - `/var/git/repositories/`
 
+Styling
+-------
+
+For the theming we use gulp and sass. So please don't change the styles in the CSS-files.
+Edit the .sass files and execute ```gulp --production```
+
+This will compile your styles, put the changes to a new file with a new cache indentifier
+and adjusts all templates and the configuration that uses the styles or js files.
+
+If your new you should execute ```yarn install``` first to install everything you need for
+development.
+
 Backups
 -------
 

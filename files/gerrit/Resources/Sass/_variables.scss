@@ -1,0 +1,22 @@
+$typo3_orange: rgb(255, 135, 0);
+$text-color: rgb(88, 88, 88);
+$text-color-hover: lighten($text-color, 20%);
+$light-text-color: rgb(175, 175, 175);
+$colorError: #f55;
+$colorErrorPastel: lighten($colorError, 15%);
+
+$opaque-white: rgba(255, 255, 255, 0.75);
+$opaque-black: rgba(0, 0, 0, 0.8);
+
+$base-margin: 15px;
+$double-base-margin: 30px;
+
+$lightShadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+$heavyShadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+
+@mixin prefix($prop, $value) {
+  -webkit-#{$prop}: $value;
+  -moz-#{$prop}: $value;
+  -ms-#{$prop}: $value;
+  #{$prop}: $value;
+}

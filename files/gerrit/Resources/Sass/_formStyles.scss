@@ -1,0 +1,205 @@
+@import "_variables";
+
+#login_form {
+  position: relative;
+  background: $opaque-white;
+  width: 350px;
+  padding: 80px 40px 40px 40px;
+  border-radius: 5px;
+  @include prefix(box-shadow, 5px 5px 50px -16px $opaque-black);
+
+  &:before {
+    background-image: url("/static/typo3-orange_1515269305.cache.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    content: "";
+    position: absolute;
+    top: 0;
+    height: 168px;
+    width: 350px;
+  }
+
+  table {
+    display: flex;
+    padding-top: 100px;
+
+    tbody {
+      flex: 1;
+
+      th {
+        display: none;
+      }
+
+      td {
+        flex: 1;
+        -ms-flex: 1 0 auto;
+        display: flex;
+        align-items: stretch;
+        flex-direction: column;
+        -ms-flex-direction: column;
+      }
+
+      tr {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+
+        &:nth-child(3) {
+          margin-bottom: $double-base-margin;
+        }
+
+        &:nth-child(3) td,
+        &:nth-child(4) td {
+          flex-direction: row;
+
+          &:first-child {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  /* Input fields */
+  input[type="text"],
+  input[type="password"] {
+    border: 0;
+    border-left: 5px solid $typo3_orange;
+    background: #ebebeb;
+    padding: 0px $base-margin;
+    height: 40px;
+    margin-bottom: $base-margin;
+
+    color: $text-color;
+    font-size: 1em;
+
+    @include prefix(box-shadow, $lightShadow);
+
+    &:-webkit-input-placeholder,
+    &:-ms-input-placeholder,
+    &:-moz-placeholder {
+      color: $light-text-color;
+    }
+
+    &:focus {
+      background: #fafafa;
+    }
+  }
+
+  /* Buttons */
+  input[type="submit"],
+  a#cancel_link {
+    flex: 1;
+    align-self: center;
+
+    border: 0;
+    border-bottom: 5px solid $typo3_orange;
+    background: #ebebeb;
+    padding: 0px $base-margin;
+    height: 50px;
+    margin-bottom: $base-margin;
+
+    text-transform: uppercase;
+    font-size: 1.2em;
+    text-decoration: none;
+    color: $text-color;
+
+    @include prefix(box-shadow, $lightShadow);
+
+    &:hover,
+    &:focus {
+      color: $typo3_orange;
+      background: #fafafa;
+    }
+  }
+
+  a#cancel_link {
+    margin-left: $double-base-margin;
+    margin-top: 3px;
+    line-height: 45px;
+    height: 45px;
+    text-align: center;
+  }
+
+  /* Checkbox */
+  #f_remember + label {
+    color: lighten($text-color, 20%);
+    line-height: 20px;
+
+    &:hover,
+    &:focus {
+      color: $text-color;
+    }
+  }
+
+  #f_remember {
+    position: absolute;
+    opacity: 0;
+
+    & + label {
+      position: relative;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    & + label:before {
+      content: "";
+      margin-right: 10px;
+      display: inline-block;
+      vertical-align: text-bottom;
+      width: 20px;
+      height: 20px;
+      background: white;
+    }
+
+    &:hover + label:before {
+      background: $typo3_orange;
+    }
+
+    &:focus + label:before {
+      background: $typo3_orange;
+      @include prefix(box-shadow, $lightShadow);
+    }
+
+    &:checked + label:before {
+      background: $typo3_orange;
+    }
+
+    &:disabled + label {
+      color: #b8b8b8;
+      cursor: auto;
+    }
+
+    &:disabled + label:before {
+      box-shadow: none;
+      background: #ddd;
+    }
+
+    &:checked + label:after {
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: 9px;
+      background: white;
+      width: 2px;
+      height: 2px;
+      box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white,
+        4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
+      transform: rotate(45deg);
+    }
+  }
+}
+
+#error_message {
+  flex: 1;
+  width: auto;
+  border: 1px solid $colorErrorPastel;
+  background: $colorError;
+  padding: 10px;
+  margin: 0;
+  margin-bottom: $base-margin;
+
+  color: #fff;
+  font-size: 1em;
+  font-weight: normal;
+}

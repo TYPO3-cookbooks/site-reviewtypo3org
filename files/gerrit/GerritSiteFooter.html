@@ -1,5 +1,21 @@
 <!-- Piwik -->
 <script type="text/javascript">
+  /**
+  * This is a bit hacky but if I add another script tag gerrit is not starting anymore.
+  * So we add here the JS include for element queries.
+  *
+  * @param {string} url
+  * @return {void}
+  */
+  function dynamicallyLoadScript(url) {
+    var script = document.createElement('script');
+    script.src = url;
+    document.head.appendChild(script);
+  }
+
+  dynamicallyLoadScript('/static/bundle_1515270490.cache.js');
+
+  // Piwik code starts here
   var _paq = _paq || [];
   var trackedUrl=window.location.protocol + "//" + window.location.host + window.location.pathname + window.location.hash.replace(/#\//, '');
   _paq.push(['setCustomUrl', trackedUrl]);
@@ -30,6 +46,8 @@
     }
   }
 
-  window.onload = gerritPiwik();
+  window.onload = function() {
+    gerritPiwik();
+    }
 </script>
 <!-- End Piwik Code -->
