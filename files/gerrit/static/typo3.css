@@ -42,7 +42,7 @@ a:hover {
 }
 
 #gerrit_topmenu > table {
-	background: url(static/s-buttons.2a9e3abb93e617254323a2f81b.cache.png) left top repeat-x !important;
+	background: url(/static/s-buttons.2a9e3abb93e617254323a2f81b.cache.png) left top repeat-x !important;
 	border-collapse: collapse !important;
 	border-top: 1px solid #E97E0D !important;
 }
@@ -116,7 +116,7 @@ a:hover {
 /* footer */
 #gerrit_btmmenu {
 	margin-right: 10px;
-	background: url(static/footer-logo.b9f2ba66aab906975d481c42d4.cache.gif) no-repeat scroll right center transparent;
+	background: url(/static/footer-logo.b9f2ba66aab906975d481c42d4.cache.gif) no-repeat scroll right center transparent;
 }
 
 #gerrit_btmmenu div {
