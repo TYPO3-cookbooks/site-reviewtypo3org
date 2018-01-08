@@ -26,7 +26,6 @@
     function showBody() {
       setTimeout(function() {
         var body = document.getElementsByTagName("body");
-        console.log(body);
         if (body && body.length) {
           body[0].style.visibility = "visible";
         }
