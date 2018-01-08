@@ -130,7 +130,7 @@ a:hover {
 /* footer */
 #gerrit_btmmenu {
   margin-right: 10px;
-  background: url(static/footer-logo.b9f2ba66aab906975d481c42d4.cache.gif) no-repeat scroll right center transparent; }
+  background: url(/static/footer-logo.b9f2ba66aab906975d481c42d4.cache.gif) no-repeat scroll right center transparent; }
 
 #gerrit_btmmenu div {
   color: #aaaaaa !important;
