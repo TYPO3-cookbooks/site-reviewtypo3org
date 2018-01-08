@@ -27,7 +27,7 @@
       setTimeout(function() {
         var body = document.getElementsByTagName("body");
         console.log(body);
-        if (body.length) {
+        if (body && body.length) {
           body[0].style.visibility = "visible";
         }
       }, 500);
