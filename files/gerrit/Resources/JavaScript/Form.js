@@ -11,7 +11,7 @@
       passwordField = document.getElementById("f_pass");
 
       showBody();
-      if (form.length > 0) {
+      if (form && form.length > 0) {
         renderPlaceholder();
         renderErrorMessage();
       }
