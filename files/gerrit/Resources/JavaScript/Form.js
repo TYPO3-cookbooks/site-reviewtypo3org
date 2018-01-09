@@ -11,7 +11,7 @@
       passwordField = document.getElementById("f_pass");
 
       showBody();
-      if (form.length > 0) {
+      if (form && form.length > 0) {
         renderPlaceholder();
         renderErrorMessage();
       }
@@ -26,8 +26,7 @@
     function showBody() {
       setTimeout(function() {
         var body = document.getElementsByTagName("body");
-        console.log(body);
-        if (body.length) {
+        if (body && body.length) {
           body[0].style.visibility = "visible";
         }
       }, 500);
