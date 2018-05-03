@@ -1,5 +1,4 @@
 default['gerrit']['theme']['compile_files'] = %w{
-  GerritSiteFooter.html
   GerritSiteHeader.html
   GerritSite.css
 }
