@@ -24,7 +24,7 @@
 [index]
 	type = LUCENE
 [auth]
-	type = LDAP
+	type = <%= node['gerrit']['config']['auth']['type'] %>
 	gitBasicAuthPolicy = HTTP_LDAP
 	; allowing anonymous access to gerrit by explicitly setting the loginUrl
 	loginUrl = login/
