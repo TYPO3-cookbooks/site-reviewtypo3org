@@ -41,6 +41,7 @@ suites:
       gerrit:
         config:
           auth:
+            type: DEVELOPMENT_BECOME_ANY_ACCOUNT
             registerEmailPrivateKey: 123123123
             restTokenPrivateKey: 123123123
             cookieSecure: false

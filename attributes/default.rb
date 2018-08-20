@@ -12,6 +12,8 @@ default['gerrit']['config']['httpd']['listenUrl'] = 'proxy-https://*:8080/'
 default['gerrit']['config']['database']['type'] = "MYSQL"
 #<> Database name
 default['gerrit']['config']['database']['database'] = "gerrit"
+#<> Set authentication type
+default['gerrit']['config']['auth']['type'] = 'LDAP'
 #<> Set cookieSecure attribute
 default['gerrit']['config']['auth']['cookieSecure'] = true
 #<> Use HTTP basic auth for Git via HTTP (instead of additional HTTP passwords)
