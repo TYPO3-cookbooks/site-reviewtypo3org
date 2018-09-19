@@ -4,7 +4,8 @@
 <% if node['gerrit']['config']['gerrit']['canonicalGitUrl'] %>
 	canonicalGitUrl = <%= node['gerrit']['config']['gerrit']['canonicalGitUrl'] %>
 <% end %>
-	reportBugUrl = http://forge.typo3.org/projects/team-git
+	reportBugText = Legal Info
+	reportBugUrl = https://typo3.org/legal-notice/
 	serverId = 7798dc65-df04-4128-aaa3-dc27bf14c709
 [database]
 	type = <%= node['gerrit']['config']['database']['type'].downcase %>
