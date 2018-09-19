@@ -11,14 +11,6 @@
 	database = <%= node['gerrit']['config']['database']['database'] %>
 	hostname = <%= node['gerrit']['config']['database']['hostname'] %>
 	username = <%= node['gerrit']['config']['database']['username'] %>
-
-	; Ensure that new tables are created as InnoDB (MyISAM is default in MySQL 5.1)
-	; see https://code.google.com/p/gerrit/issues/detail?id=1273
-	; - otherwise we would have trouble with MyISAM + utf8 + long key lengths:
-	;;;; running latin1, would end up with nasty "Illegal mix of collations" exteptions
-	;;;; see https://groups.google.com/forum/?fromgroups=#!topic/repo-discuss/AOHR0KUHJlE
-	;;;; and http://code.google.com/p/gerrit/issues/detail?id=435
-;	url = "jdbc:mysql://<%= node['gerrit']['config']['database']['hostname'] %>:3306/<%= node['gerrit']['config']['database']['name'] %>?user=<%= node['gerrit']['config']['database']['username'] %>&password=SECRETFIXME&sessionVariables=storage_engine=InnoDB"
 	poolMaxIdle = 8
 	poolLimit = 36
 [index]
