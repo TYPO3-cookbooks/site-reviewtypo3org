@@ -30,7 +30,7 @@ $data['token'] = "<% @token %>";
 $data['changeUrl'] = $data['change-url'];
 $fields = $data;
 
-$url = 'https://intercept.typo3.com/index.php';
+$url = 'https://intercept.typo3.com/gerrit';
 
 //url-ify the data for the POST
 $fields_string = '';
