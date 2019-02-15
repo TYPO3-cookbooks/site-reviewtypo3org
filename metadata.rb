@@ -13,4 +13,3 @@ depends "t3-chef-vault",     "~> 1.0.0"
 depends "t3-mysql",          "~> 0.1.3"
 
 depends "ssh",               "= 0.10.22"
-depends "java",              "= 3.1.1"
