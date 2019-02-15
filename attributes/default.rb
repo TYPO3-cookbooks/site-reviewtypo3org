@@ -1,5 +1,5 @@
 #<> Gerrit version
-default['gerrit']['version'] = '2.14.18'
+default['gerrit']['version'] = '2.15.10'
 #<> Gerrit host name
 default['gerrit']['hostname'] = "review.typo3.org"
 #<> Gerrit's URL (used in emails etc)
