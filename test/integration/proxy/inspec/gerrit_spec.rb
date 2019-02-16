@@ -16,7 +16,7 @@ control 'gerrit-proxy' do
 
   describe command("curl --insecure https://review.vagrant") do
     its('exit_status') { should eq 0 }
-    its('stdout') { should include '<title>Gerrit Code Review</title>' }
+    its('stdout') { should include 'Gerrit Code Review' }
   end
 
   # Gerrit SSH 39418 -> 29418
@@ -49,7 +49,7 @@ control 'gerrit-1' do
   # port 8080 HTML
   describe command('curl http://localhost:8080') do
     its('exit_status') { should eq 0 }
-    its('stdout') { should include '<title>Gerrit Code Review</title>' }
+    its('stdout') { should include 'Gerrit Code Review' }
   end
 
 end

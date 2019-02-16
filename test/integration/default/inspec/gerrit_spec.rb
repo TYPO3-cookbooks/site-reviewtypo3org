@@ -43,7 +43,7 @@ control 'gerrit-1' do
   # port 8080 HTML
   describe command('curl http://localhost:8080') do
     its('exit_status') { should eq 0 }
-    its('stdout') { should include '<title>Gerrit Code Review</title>' }
+    its('stdout') { should include 'Gerrit Code Review' }
   end
 
   # check heap limit
