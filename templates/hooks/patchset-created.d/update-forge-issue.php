@@ -29,84 +29,84 @@ $argv = array (
 );
 */
 
-
 // parse parameters into sth. easier to access, namely into $args
 
 $args = array();
 for ($i = 1; $i < $_SERVER['argc']; $i++) {
-	if (substr($_SERVER['argv'][$i], 0, 2) == '--') {
-		$optionName = substr($_SERVER['argv'][$i], 2);
-		$args[$optionName] = $_SERVER['argv'][$i + 1];
-		$i++;
-	} else {
-		echo "Ignored unexpected parameter #" . $i . ": " . $_SERVER['argv'][$i];
-	}
+    if (substr($_SERVER['argv'][$i], 0, 2) == '--') {
+        $optionName = substr($_SERVER['argv'][$i], 2);
+        $args[$optionName] = $_SERVER['argv'][$i + 1];
+        $i++;
+    } else {
+        echo 'Ignored unexpected parameter #' . $i . ': ' . $_SERVER['argv'][$i];
+    }
 }
 
 // log input parameters
 $parametersGiven = array();
 foreach ($args as $key => $value) {
-	$parametersGiven[] = $key . ":" . $value;
+    $parametersGiven[] = $key . ':' . $value;
 }
-echo "Executing hook file " . __FILE__ . " (" . implode(", ", $parametersGiven) . ")";
+echo 'Executing hook file ' . __FILE__ . ' (' . implode(', ', $parametersGiven) . ')';
 unset($parametersGiven);
 
 
-    // fetch commit message
-$commitInfo = '';
+// fetch commit message
+$commitInfo = array();
 exec('GIT_DIR=/var/gerrit/review/git/' . $args['project'] . '.git/ git show --quiet --pretty=medium ' . $args['commit'], $commitInfo);
 $commitInfo = implode($commitInfo, chr(10));
 
-    // extract issue footer(s)
+// extract issue footer(s)
 $matches = array();
 if (preg_match_all('/^\s*(?:Fixes|Resolves): \#([0-9]+)/mi', $commitInfo, $matches) !== FALSE) {
-	$issueNumbers = $matches[1];
+    $issueNumbers = $matches[1];
 } else {
-	exit(0);
+    exit(0);
 }
+
+ini_set('user_agent', 'Gerrit Hook Script');
 
 foreach ($issueNumbers as $issueId) {
-	ini_set('user_agent', 'Gerrit Hook Script');
-	$existingIssue = json_decode(file_get_contents('http://forge.typo3.org/issues/' . $issueId . '.json'));
+    $existingIssue = json_decode(file_get_contents('http://forge.typo3.org/issues/' . $issueId . '.json'));
 
-	$updatedIssue = array(
-		'issue' => array(
-			'id' => $issueId,
-			'status_id' => '8',
-			'notes' => 'Patch set ' . $args['patchset'] . ' for branch *' . $args['branch'] . '* of project *' . $args['project'] . '* has been pushed to the review server.' . chr(10) . 'It is available at ' . $args['change-url']
-		)
-	);
+    $updatedIssue = array(
+        'issue' => array(
+            'id' => $issueId,
+            'status_id' => '8',
+            'notes' => 'Patch set ' . $args['patchset'] . ' for branch *' . $args['branch'] . '* of project *' . $args['project'] . '* has been pushed to the review server.' . chr(10) . 'It is available at ' . $args['change-url']
+        )
+    );
 
-	putIssue($updatedIssue);
+    putIssue($updatedIssue);
 }
 
-function putIssue(array $issue) {
-	$errorNumber = 0;
-	$errorMessage = '';
-	$fp = fsockopen('tls://forge.typo3.org', 443, $errorNumber, $errorMessage);
-	if (!$fp) {
-		return $errorNumber . ' - ' . $errorMessage;
-	} else {
-		fputs($fp, "PUT /issues/" . $issue['issue']['id'] . ".json HTTP/1.1\r\n");
-		unset($issue['issue']['id']);
-		fputs($fp, "Host: forge.typo3.org\r\n");
-			// the key belongs to user "gerrit-review"
-		fputs($fp, "Authorization: Basic " . base64_encode('<%= @token %>:') . "\r\n");
-		fputs($fp, "User-Agent: Gerrit Hook Script\r\n");
-		fputs($fp, "Content-Type: application/json\r\n");
-		fputs($fp, "Content-Length: " . strlen(json_encode($issue)) . "\r\n");
-		fputs($fp, "Connection: close\r\n\r\n");
-		fputs($fp, json_encode($issue));
-		fputs($fp, "\r\n");
+function putIssue(array $issue)
+{
+    $errorNumber = 0;
+    $errorMessage = '';
+    $fp = fsockopen('tls://forge.typo3.org', 443, $errorNumber, $errorMessage);
+    if (!$fp) {
+        return $errorNumber . ' - ' . $errorMessage;
+    }
 
-		$result = '';
-		while (!feof($fp)) {
-			$result .= fgets($fp, 1024);
-		}
-		fclose($fp);
+    fputs($fp, 'PUT /issues/' . $issue['issue']['id'] . ".json HTTP/1.1\r\n");
+    unset($issue['issue']['id']);
+    fputs($fp, "Host: forge.typo3.org\r\n");
+    // the key belongs to user "gerrit-review"
+    fputs($fp, "Authorization: Basic " . base64_encode('<%= @token %>:') . "\r\n");
+    fputs($fp, "User-Agent: Gerrit Hook Script\r\n");
+    fputs($fp, "Content-Type: application/json\r\n");
+    fputs($fp, "Content-Length: " . strlen(json_encode($issue)) . "\r\n");
+    fputs($fp, "Connection: close\r\n\r\n");
+    fputs($fp, json_encode($issue));
+    fputs($fp, "\r\n");
 
-		return $result;
-	}
+    $result = '';
+    while (!feof($fp)) {
+        $result .= fgets($fp, 1024);
+    }
+    fclose($fp);
+
+    return $result;
+
 }
-
-?>
