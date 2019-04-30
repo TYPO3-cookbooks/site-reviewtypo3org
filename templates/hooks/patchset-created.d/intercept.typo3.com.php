@@ -14,8 +14,11 @@ for ($i = 1; $i < $_SERVER['argc']; $i++) {
 }
 
 // do not disclose changes in foreign repositories!
-if (!strstr($args['project'], 'Packages/TYPO3.CMS')) {
-    echo 'Will not send anything for repositories except Packages/TYPO3.CMS';
+if (
+    !strstr($args['project'], 'Packages/TYPO3.CMS')
+    && !strstr($args['project'], 'Teams/Security/TYPO3v4-Core')
+) {
+    echo 'Will not send anything for repositories except Packages/TYPO3.CMS and Teams/Security/TYPO3v4-Core';
     exit;
 }
 
